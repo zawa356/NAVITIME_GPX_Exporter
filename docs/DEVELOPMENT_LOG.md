@@ -134,3 +134,12 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - This supports **stale injected page content** as explanation; we have **not proven** whether the prior temporary PoC was still enabled. The current source never intentionally injects UI.
 - 0.0.45: Updated the private-evidence second-ride report with resolution and separated 1,436-point stale notice from 539-point current export.
 - 0.0.46: Recorded the resolution and next required manual target: Chrome (followed by Edge). GPX comparison against original second-ride JSON and complete Firefox negative-case matrix remain open.
+
+## Google Chrome first real-world GPX acceptance (2026-10-11)
+- User loaded the Chrome extension and demonstrated a readable popup with the correct ride title, record date and enabled export button.
+- A user-uploaded Chrome GPX file was parsed offline, and separately compared with the previously tested Firefox file **for the same original ride**. Files were byte-identical (277,018 bytes, identical SHA-256), with 1 segment and 2,779 points.
+- Using the user's private original NAVITIME JSON, all 2,779 ordered longitude/latitude values, elevation values and timestamps were individually compared against the Chrome GPX: **0 mismatches**.
+- No private user GPS trace, HAR, screenshot or JSON was added to GitHub. The `(1)` in Chrome's local filename comes from the browser's duplicate download naming.
+- 0.0.48: New [Chrome live acceptance report](TEST_REPORTS/2026-10-11-chrome.md).
+- 0.0.49: Release checklist updated to PASS for the Chrome popup and initial export.
+- 0.0.50: Development log updated, with next manual acceptance target Microsoft Edge. Further browser negative tests, signed store builds and GPX XSD validation remain unperformed. No source code change was necessary.
