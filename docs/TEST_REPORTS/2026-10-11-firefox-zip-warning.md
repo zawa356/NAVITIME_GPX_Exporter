@@ -1,6 +1,6 @@
 # Firefox downloaded ZIP flagged as malware — preliminary investigation
 
-Date: 2026-10-11. **Status: OPEN / unconfirmed root cause.** Do not classify as false positive or advise bypassing Firefox protection until additional evidence is available.
+Date: 2026-10-11. **Status: DEFERRED BY USER / unconfirmed root cause.** Do not classify as false positive or advise bypassing Firefox protection until additional evidence is available.
 
 ## User report
 - While attempting to install the new development 0.0.2 build in Firefox, the browser displayed the Japanese alert `このファイルはウイルスやマルウェアが含まれています。`, with `ファイルを削除` and `ダウンロードを許可`.
@@ -45,3 +45,11 @@ Official references:
 5. A local source checkout and audited developer build can serve as an alternate testing path, but do not recommend bypassing protective warnings blindly.
 
 Do not mark the multi-page Firefox acceptance case passed until the user can safely install and run a verified 0.0.2 build.
+
+## Follow-up from the user — 2026-10-11
+
+- User confirmed that **`extension-builds.zip` (the outer GitHub Actions artifact)** was the Firefox-blocked download.
+- The user reports Microsoft Defender scanned the file without a detection.
+- The user subsequently reports successfully using the saved-route GPX export in Firefox 0.0.2.
+- Per user preference, investigation is **DEFERRED for the development stage**, not declared a Safe Browsing false positive. Do not suggest disabling protection; reassess download reputation/packaging before public distribution.
+- See [Firefox saved-route smoke test](2026-10-11-firefox-saved-route-smoke.md). A successful download does not yet establish route point-for-point integrity or GPX XSD validity.

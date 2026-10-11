@@ -218,3 +218,11 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - This is **not** enough to assert a false positive. Mozilla documents the exact warning as Firefox's download protection/Safe Browsing classification.
 - 0.0.99: added [forensic report](TEST_REPORTS/2026-10-11-firefox-zip-warning.md) with package hashes, provenance, limitations and one next question: **which filename was blocked?**
 - The new 0.0.2 saved-route live browser acceptance is **blocked pending a safe installation**; do not count it as passed.
+
+## Firefox 0.0.2 saved-route smoke and archive-warning follow-up (2026-10-11)
+
+- 0.0.102: Added [privacy-safe Firefox saved-route smoke report](TEST_REPORTS/2026-10-11-firefox-saved-route-smoke.md). User confirms saved planned-route GPX downloaded. This is **smoke-test PASS only**: no file was submitted for actual route point/segment/time/altitude comparison, and popup content was not newly screenshot-verified.
+- 0.0.103: User identified the Firefox-warning target as **outer Actions `extension-builds.zip`**, not a particular browser ZIP. Defender local scan reportedly found no issue. User chose to defer further reputation/Safe Browsing investigation. Root cause and false-positive status remain **unconfirmed** and should be reassessed before store publication.
+- 0.0.104: Release checklist now distinguishes a successful Firefox **download** from pending saved-route **data-completeness verification**.
+- 0.0.105: Multi-page test plan updated to acknowledge the observed download and pending browser / schema tests.
+- Next: privately compare downloaded planned-route GPX with prior HAR geometry (2,614 vertices and 1 segment **only if the same saved route**), confirm no fabricated timestamps/elevation, test 0.0.2 recorded ride, then Chromium siblings. Do not put source/GPX coordinates or session identifiers into GitHub.

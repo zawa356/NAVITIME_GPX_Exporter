@@ -1,6 +1,6 @@
 # Touring Supporter multi-page acceptance test plan — development 0.0.2
 
-**Status:** Ready to execute after CI build; **not yet passed by real browsers**.  
+**Status:** Saved-route Firefox download smoke-tested in 0.0.2; file integrity and most three-browser manual cases remain pending.  
 **Scope:** Tour log details + saved planned route details in Firefox, Chrome and Edge.  
 **Privacy:** Never upload HAR, login cookies, API payloads or full GPX to the repository. Private user-provided GPX files may be compared offline if explicitly provided.
 
@@ -41,7 +41,7 @@
 | Case | Firefox | Chrome | Edge |
 | --- | --- | --- | --- |
 | Recorded ride preview & export | Pending 0.0.2 regression | Pending | Pending |
-| Saved route preview & export | Pending | Pending | Pending |
+| Saved route preview & export | Download confirmed; full content/preview verification pending | Pending | Pending |
 | Saved route visual map comparison | Pending | Pending | Pending |
 | Unsupported page | Previously passed Firefox 0.0.1, retest 0.0.2 | Pending | Pending |
 | Error/Retry/diagnostic safety | Pending | Pending | Pending |
