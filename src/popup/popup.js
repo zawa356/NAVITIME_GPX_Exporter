@@ -10,7 +10,7 @@
         /Chrome\//i.test(navigator.userAgent) ? "Chrome" : "Unknown"
   }, null, 2);
   const LABELS = {
-    UNSUPPORTED_PAGE: "ツーリングサポーターの走行ログ詳細画面を開いてください。",
+    UNSUPPORTED_PAGE: "走行ログ詳細画面または保存済みルート画面を開いてください。",
     AUTH_REQUIRED: "ログイン状態を確認してください。",
     NETWORK_ERROR: "ネットワーク接続を確認して再試行してください。",
     PAGE_CHANGED: "画面が変わりました。もう一度実行してください。",
@@ -21,6 +21,9 @@
     INVALID_SEGMENT: "GPSデータの構造が不正です。",
     INVALID_TIMESTAMP: "GPSの時刻が不正です。",
     ACTIVITY_MISMATCH: "異なる走行記録のデータを検出しました。",
+    INVALID_ROUTE: "保存済みルートの情報を検証できませんでした。",
+    INVALID_ROUTE_ID: "保存済みルートの識別子が不正です。",
+    INVALID_COORDINATES: "経路の座標データが不正です。",
     API_ERROR: "NAVITIMEのAPIからエラーが返りました。",
     UNEXPECTED_RESPONSE: "ログイン状態またはAPI応答を確認してください。"
   };
@@ -58,16 +61,21 @@
     if (state.busy) return;
     state.busy = true; state.ready = false;
     $("export").disabled = true; $("retry").hidden = true; $("diagnostics").hidden = true;
-    $("rideTitle").hidden = true; $("rideDate").hidden = true;
+    $("rideTitle").hidden = true; $("rideDate").hidden = true; $("kindLabel").hidden = true;
     status("走行ログを確認しています…");
     try {
       state.tabId = await activeTab();
       const result = await message("summary");
       if (!result.ok) { failure(result); return; }
+      const planned = result.data.kind === "planned";
+      $("kindLabel").textContent = planned ? "保存済みルート（予定経路）" : "実走行ログ";
+      $("kindLabel").hidden = false;
       $("rideTitle").textContent = result.data.title || "タイトルなし";
-      $("rideDate").textContent = result.data.date ? "記録日: " + result.data.date : "記録日: 不明";
+      const dateLabel = result.data.dateLabel === "登録日" ? "登録日" : "記録日";
+      $("rideDate").textContent = result.data.date ? dateLabel + ": " + result.data.date : dateLabel + ": 不明";
       $("rideTitle").hidden = false; $("rideDate").hidden = false;
-      status("この走行ログをGPX形式で保存できます。");
+      status(planned ? "この保存済みルートをGPX形式で保存できます。" :
+        "この走行ログをGPX形式で保存できます。");
       state.ready = true; $("export").disabled = false;
     } catch { failure({ error: { code: "TAB_UNAVAILABLE", phase: "popup" } }); }
     finally { state.busy = false; }
@@ -75,7 +83,7 @@
   $("export").addEventListener("click", async () => {
     if (!state.ready || state.busy) return;
     state.busy = true; $("export").disabled = true; $("retry").hidden = true;
-    status("GPSデータを取得してGPXを生成しています…");
+    status("経路データを取得してGPXを生成しています…");
     try {
       const result = await message("export");
       if (!result.ok) { failure(result); return; }
