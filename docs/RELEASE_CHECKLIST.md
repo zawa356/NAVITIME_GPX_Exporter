@@ -1,6 +1,6 @@
 # Release and acceptance checklist
 
-**Target:** First public release `0.1.0` (NOT accomplished by merging the `0.0.1` development branch).
+**Target:** First public release `0.1.0` after two Touring Supporter page types (recorded rides AND saved planned routes) pass acceptance in all three browsers. Merging development code does NOT publish version 0.1.0.
 
 ## Automated gates
 - [ ] `npm run check` validates all JavaScript source.
@@ -17,7 +17,10 @@
 | Test | Firefox | Chrome | Edge |
 | --- | --- | --- | --- |
 | Popup shows title + date | ✅ | ✅ | ✅ |
-| Logged-in single-ride export | ✅ | ✅ | ✅ |
+| Logged-in recorded-ride export | ✅ | ✅ | ✅ |
+| Saved-route page popup + title/date | ☐ | ☐ | ☐ |
+| Saved-route GPX export (no synthetic time/elevation) | ☐ | ☐ | ☐ |
+| Saved-route continuity / 35 LineStrings | ☐ | ☐ | ☐ |
 | GPX displayed correctly in map app | ☐ | ☐ | ☐ |
 | Different ride after SPA navigation | ☐ | ☐ | ☐ |
 | Invalid/unsupported page | ✅ | ☐ | ☐ |
@@ -28,7 +31,13 @@
 | Navigation away during export | ☐ | ☐ | ☐ |
 | Duplicate export clicks | ☐ | ☐ | ☐ |
 
-**Firefox proof:** [2026-10-11 test report](TEST_REPORTS/2026-10-11-firefox.md) documents a successful 2,779-point source-to-GPX comparison with zero coordinate, altitude or time mismatches. Full GPX 1.1 XSD validation and map-application rendering remain pending.\n\n**Chrome proof:** [2026-10-11 Chrome live-test report](TEST_REPORTS/2026-10-11-chrome.md) shows one successfully downloaded, byte-for-byte identical GPX to Firefox, with 2,779/2,779 point-coordinate/elevation/timestamp matches against private source JSON. This checks basic export only; Chrome negative cases remain pending.\n\n**Edge proof:** [2026-10-11 Edge acceptance report](TEST_REPORTS/2026-10-11-edge.md). Positive-path GPX export is now evidenced on **all three browsers**, with byte-for-byte identical output and 2,779 points matching the private original source JSON. Negative cases, GPX 1.1 XSD validation and map-app import remain pending.\n\n**Firefox unsupported-page proof:** A saved-route view (which v0.0.1 does not yet support) showed the expected red guidance, disabled `GPXを保存`, visible retry and a collapsed diagnostics section. No GPS data was exported. The user separately requested support for saved planned routes as a future feature; see [design proposal](PROPOSALS/SAVED_ROUTE_EXPORT.md).\n\n## Store & documentation
+**Firefox proof:** [2026-10-11 test report](TEST_REPORTS/2026-10-11-firefox.md) documents a successful 2,779-point source-to-GPX comparison with zero coordinate, altitude or time mismatches. Full GPX 1.1 XSD validation and map-application rendering remain pending.\n\n**Chrome proof:** [2026-10-11 Chrome live-test report](TEST_REPORTS/2026-10-11-chrome.md) shows one successfully downloaded, byte-for-byte identical GPX to Firefox, with 2,779/2,779 point-coordinate/elevation/timestamp matches against private source JSON. This checks basic export only; Chrome negative cases remain pending.\n\n**Edge proof:** [2026-10-11 Edge acceptance report](TEST_REPORTS/2026-10-11-edge.md). Positive-path GPX export is now evidenced on **all three browsers**, with byte-for-byte identical output and 2,779 points matching the private original source JSON. Negative cases, GPX 1.1 XSD validation and map-app import remain pending.\n\n**Firefox unsupported-page proof:** A saved-route view (which v0.0.1 does not yet support) showed the expected red guidance, disabled `GPXを保存`, visible retry and a collapsed diagnostics section. No GPS data was exported. The user separately requested support for saved planned routes as a future feature; see [design proposal](PROPOSALS/SAVED_ROUTE_EXPORT.md).\n\n### Gate for the new feature
+
+The saved-route adapter was developed from **one real HAR** plus synthetic tests. It is not eligible for public release until each browser performs one live route-detail export and the exported route is checked for approximately 2,614 distinct route vertices and correct segmentation. The 2,614 figure applies only to the private reference route in the HAR; different routes can legitimately differ. Check no <time> or <ele> data was fabricated, record the result in `docs/TEST_REPORTS/`, and never commit the route file.
+
+Recorded-ride compatibility remains an independent regression gate. Verify **both** page types before increasing the release version to 0.1.0. Unsupported routes/other NAVITIME services remain out-of-scope until separately validated.
+
+## Store & documentation
 - [ ] Validate current store policies and NAVITIME service terms.
 - [ ] Confirm use of NAVITIME in display name does not imply endorsement.
 - [ ] Confirm Firefox manifest privacy declaration and add-on ID; obtain Mozilla signing.

@@ -1,10 +1,12 @@
 (function (root) {
   "use strict";
-  const adapter = root.NavitimeTouring, E = root.NavitimeErrors;
+  const sources = root.NavitimeSources, E = root.NavitimeErrors;
   let exporting = false, last = null, lastUrl = null;
-  function currentId() { return adapter.idFromUrl(location.href); }
-  function checkId(id) {
-    if (!id || currentId() !== id) throw new E.ExportError("PAGE_CHANGED", "navigation");
+  function active() { return sources.find(location.href); }
+  function requireUnchanged(source, url) {
+    const now = active();
+    if (!now || now.id !== source.id || now.kind !== source.kind || location.href !== url)
+      throw new E.ExportError("PAGE_CHANGED", "navigation");
   }
   function save(xml, filename) {
     const blob = new Blob([xml], { type: "application/gpx+xml;charset=utf-8" });
@@ -18,42 +20,40 @@
     }
   }
   async function summary() {
-    const id = currentId();
-    if (!id) throw new E.ExportError("UNSUPPORTED_PAGE", "summary");
-    const entry = await adapter.getSummary(id);
-    checkId(id);
-    last = entry; lastUrl = location.href;
-    return { title: entry.title, date: entry.date };
+    const source = active(), url = location.href;
+    if (!source) throw new E.ExportError("UNSUPPORTED_PAGE", "summary");
+    const details = await source.adapter.getSummary(source.id);
+    requireUnchanged(source, url);
+    last = { ...details, kind: source.kind }; lastUrl = url;
+    return { kind: source.kind, title: details.title, date: details.date,
+      dateLabel: details.dateLabel || (source.kind === "planned" ? "登録日" : "記録日") };
   }
   async function exportLog() {
     if (exporting) throw new E.ExportError("ALREADY_RUNNING", "export");
-    const id = currentId();
-    if (!id) throw new E.ExportError("UNSUPPORTED_PAGE", "export");
+    const source = active(), url = location.href;
+    if (!source) throw new E.ExportError("UNSUPPORTED_PAGE", "export");
     exporting = true;
     try {
-      // Never trust a cached summary after same-origin SPA navigation.
-      const entry = last && last.id === id && lastUrl === location.href ?
-        last : await adapter.getSummary(id);
-      checkId(id);
-      const track = await adapter.getTrack(entry);
-      checkId(id);
+      const details = last && lastUrl === url && last.id === source.id &&
+        last.kind === source.kind ? last : await source.adapter.getSummary(source.id);
+      requireUnchanged(source, url);
+      const track = await source.adapter.getTrack(details);
+      requireUnchanged(source, url);
       const xml = root.NavitimeGpx.convert(track);
       save(xml, root.NavitimeTrack.filename(track));
-      return { points: track.count, segments: track.segments.length };
+      return { points: track.count, segments: track.segments.length, kind: source.kind };
     } finally { exporting = false; }
   }
-  // Use callback-compatible messaging across Firefox and Chromium.
   chrome.runtime.onMessage.addListener((msg, sender, respond) => {
     if (msg?.namespace !== "navitime-gpx-v1") return false;
     if (msg.action !== "summary" && msg.action !== "export") {
       respond({ ok: false, error: { code: "INVALID_ACTION", phase: "message", status: null } });
       return false;
     }
-    const op = msg.action === "summary" ? summary() : exportLog();
-    op.then(data => respond({ ok: true, data }),
+    const operation = msg.action === "summary" ? summary() : exportLog();
+    operation.then(data => respond({ ok: true, data }),
       err => {
         const normalized = E.normalizeError(err);
-        // Never transmit raw exception strings, API payloads, IDs or URLs to the popup.
         respond({ ok: false, error: {
           code: normalized.code, phase: normalized.phase, status: normalized.status
         } });

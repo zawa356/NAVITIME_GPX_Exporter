@@ -9,7 +9,8 @@
     const out = [
       '<?xml version="1.0" encoding="UTF-8"?>',
       '<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="NAVITIME GPX Exporter">',
-      '<metadata><name>' + xml(track.name) + '</name><time>' + track.startTime + '</time></metadata>',
+      '<metadata><name>' + xml(track.name) + '</name>' +
+        (track.startTime ? '<time>' + track.startTime + '</time>' : '') + '</metadata>',
       '<trk><name>' + xml(track.name) + '</name>'
     ];
     for (const segment of track.segments) {
@@ -17,7 +18,7 @@
       for (const point of segment) {
         const ele = point.elevation === null ? "" : "<ele>" + point.elevation + "</ele>";
         out.push('<trkpt lat="' + point.lat + '" lon="' + point.lon + '">' + ele +
-          "<time>" + point.time + "</time></trkpt>");
+          (point.time ? "<time>" + point.time + "</time>" : "") + "</trkpt>");
       }
       out.push("</trkseg>");
     }

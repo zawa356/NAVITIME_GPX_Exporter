@@ -2,28 +2,42 @@
   "manifest_version": 3,
   "name": "NAVITIME GPX Exporter",
   "description": "Export your own NAVITIME Touring Supporter ride track to a GPX file. Unofficial.",
-  "version": "0.0.1",
-  "permissions": ["activeTab"],
+  "version": "0.0.2",
+  "permissions": [
+    "activeTab"
+  ],
   "action": {
     "default_title": "NAVITIME GPX Exporter",
     "default_popup": "popup/index.html"
   },
-  "content_scripts": [{
-    "matches": ["https://web.moto.touring.navitime.jp/*"],
-    "js": [
-      "core/errors.js",
-      "core/track.js",
-      "formats/gpx.js",
-      "services/touring-supporter.js",
-      "extension/content.js"
-    ],
-    "run_at": "document_idle",
-    "all_frames": false
-  }],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://web.moto.touring.navitime.jp/*"
+      ],
+      "js": [
+        "core/errors.js",
+        "core/http.js",
+        "core/track.js",
+        "formats/geojson.js",
+        "formats/gpx.js",
+        "services/touring-supporter.js",
+        "services/saved-route.js",
+        "services/registry.js",
+        "extension/content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
   "browser_specific_settings": {
     "gecko": {
       "id": "navitime-gpx-exporter@zawa356.github.io",
-      "data_collection_permissions": {"required": ["none"]}
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
     }
   }
 }

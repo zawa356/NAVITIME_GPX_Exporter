@@ -34,6 +34,11 @@
       startTime, activityId: String(activityId), segments, count };
   }
   function filename(track) {
+    if (track.kind === "planned") {
+    const label = String(track.name || "").replace(/[<>:"/\\|?*\x00-\x1F]/g, "_")
+        .replace(/[. ]+$/g, "").trim().slice(0, 90).replace(/[. ]+$/g, "");
+      return "保存ルート_" + (label || String(track.routeId || "route").slice(0, 8)) + ".gpx";
+    }
     const d = track.startTime;
     const date = d.slice(0, 10);
     const time = d.slice(11, 19).replace(/:/g, "");

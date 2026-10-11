@@ -10,3 +10,5 @@ button.quiet{background:#eff5ff;color:#19479b;margin-top:7px}#status[data-error=
 details{margin:12px 0;border:1px solid #d8e0ec;border-radius:8px;padding:9px}
 summary{cursor:pointer;font-weight:600}pre{font:11px/1.45 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word;background:#f7f9fc;padding:8px;border-radius:6px}
 footer{font-size:11px;margin-top:16px}
+
+#kindLabel{font-size:11px;color:#546b86;font-weight:600;margin-bottom:6px}
