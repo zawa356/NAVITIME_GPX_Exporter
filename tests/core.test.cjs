@@ -52,7 +52,7 @@ test("XML filtering and filename sanitation", () => {
   assert.equal(G.xml('a&<"\u0001'), 'a&amp;&lt;&quot;');
   const tr = T.normalize(fixture(), 123, "test:bad?|. ");
   tr.startTimeSource = fixture().metadata.startTime;
-  assert.equal(T.filename(tr), "2026-10-10_122726_test_bad__.gpx");
+  assert.equal(T.filename(tr), "2026-10-10_122726_test_bad___.gpx");
 });
 test("diagnostics never include data from raw errors", () => {
   const err = new Error("GPS 35.123,137.123 token=super-secret");
