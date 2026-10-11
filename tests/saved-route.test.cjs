@@ -95,6 +95,11 @@ test("route ID and datum mismatches fail closed", async () => {
       async () => assert.rejects(adapter.getSummary(rid),/INVALID_ROUTE/));
   }
 });
+test("planned filenames retain ordinary latin letters/numbers but remove OS-forbidden characters", () => {
+  assert.equal(Track.filename({kind:"planned",name:"Route x01:West/7",routeId:rid}),
+    "保存ルート_Route x01_West_7.gpx");
+  assert.equal(Track.filename({kind:"planned",name:"...?* ",routeId:rid}), "保存ルート____.gpx");
+});
 test("route API authentication failures map to safe errors", async () => {
   await withFetch(async () => response(403,{}),
     async () => assert.rejects(adapter.getSummary(rid),/AUTH_REQUIRED/));
