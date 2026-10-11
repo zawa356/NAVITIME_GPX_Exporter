@@ -54,3 +54,11 @@ As of development package **0.0.2**, saved planned routes are under acceptance t
 - [ ] Contact/support process
 - [ ] Store metadata and language review
 - [ ] User-authorized official account registrations and submission actions
+
+## Artwork automation (development 0.0.3)
+- The selected app icon is tracked as a binary PNG in `artwork/icon-source.png`.
+- Both Manifest V3 variants declare `icons` (16/32/48/96/128px) and `action.default_icon` (16/32/48px).
+- On each `npm run build`, ImageMagick creates and packages these images automatically. The CI `extension-builds` artifact also contains `store-assets/icon-512.png` for listing use.
+- The browser and marketplace package inspect the icon metadata automatically. **Separate listing metadata, screenshots, privacy declarations, credentials and publishing are not automatically submitted** by the current CI.
+- The 512px listing image is an enlargement from the optimized 128px approved source; replace with higher-resolution approved artwork before publication if listing sharpness is unsatisfactory.
+- See [BRANDING.md](BRANDING.md) for the manifest, build and asset-verification contracts.
