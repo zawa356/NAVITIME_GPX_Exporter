@@ -35,7 +35,7 @@
   }
   function filename(track) {
     if (track.kind === "planned") {
-      const label = String(track.name || "").replace(/[<>:"/\\\\|?*\\x00-\\x1F]/g, "_")
+    const label = String(track.name || "").replace(/[<>:"/\\|?*\x00-\x1F]/g, "_")
         .replace(/[. ]+$/g, "").trim().slice(0, 90).replace(/[. ]+$/g, "");
       return "保存ルート_" + (label || String(track.routeId || "route").slice(0, 8)) + ".gpx";
     }
