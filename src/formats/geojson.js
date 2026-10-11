@@ -24,7 +24,7 @@
           feature.geometry.coordinates.length < 2) fail("INVALID_SEGMENT");
       const points = feature.geometry.coordinates.map(point);
       if (current.length && same(current[current.length - 1], points[0])) {
-        current.push(...points.slice(1));
+        for (let i = 1; i < points.length; i++) current.push(points[i]);
       } else {
         if (current.length) segments.push(current);
         current = points;
