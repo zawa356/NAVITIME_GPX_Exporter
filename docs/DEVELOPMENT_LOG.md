@@ -204,3 +204,10 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - Pre-existing recorded-ride positive-path tests (0.0.1) passed in Firefox/Chrome/Edge, with identical 2,779-point output. Run regression on new 0.0.2 build.
 - New saved-route code: synthetic tests pass in CI as of the implementation branch; **real-browser tests outstanding**. See `docs/TEST_PLANS/TOURING_MULTI_PAGE.md`.
 - Do not merge release readiness with CI passing. Public 0.1.0, manifest signing, and store publication remain blocked until user-provided multi-browser acceptance and security/privacy review.
+
+## Post-implementation review and guardrails (2026-10-11)
+- 0.0.93: Detected and fixed excessive escape characters in the planned-route filename sanitizer, reusing the previously validated recorded-ride regex; ordinary Latin letters and digits must remain unchanged.
+- 0.0.94–0.0.95: Added and corrected regression tests for ordinary ASCII filename characters versus Windows-forbidden punctuation; initial new test expectation was inaccurate, then corrected. All current synthetic tests are passing.
+- 0.0.96: Replaced array-spread append for line joins with an indexed loop to avoid JavaScript argument-count limits on long polyline sections.
+- The user's private route HAR remains solely an inspection input; no route coordinates, exact route ID, session tokens, or raw response bodies were added to the repository. No unsupported remote services are probed.
+- Next human step: use CI's new `0.0.2` artifact, first in Firefox on the user's saved-route page, then regression-test recorded rides, then repeat on Chrome and Edge. Compare the saved-route output's expected approximate 2,614 vertices against the original reference HAR **locally**.
