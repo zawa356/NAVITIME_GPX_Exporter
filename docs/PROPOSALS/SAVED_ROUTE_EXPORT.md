@@ -1,7 +1,7 @@
 # 提案: 保存済みルートのGPX出力と能力ベースの対象判定
 
-Status: **DISCUSSION / NOT APPROVED FOR IMPLEMENTATION** (2026-10-11)  
-Scope: future Touring Supporter expansion; **do not change** the committed first-public-release scope without explicit requirements decision.  
+Status: **APPROVED; IMPLEMENTED IN DEVELOPMENT PR #10; NOT YET LIVE-ACCEPTED** (2026-10-11)  
+Scope: user explicitly authorized Touring Supporter saved-route support **before** the first public 0.1.0 release. Both saved routes and recorded rides require browser testing; other NAVITIME products remain future Experimental candidates.  
 Evidence source: user-provided Firefox HAR for a saved-route view, evaluated locally. **Never commit the HAR, account data, exact route IDs, cookies, authorization headers, raw JSON, or GPS coordinates**.
 
 ## 1. Verified observations, not speculation
@@ -101,3 +101,17 @@ Use feature detection for supported *data types*, but restrict network access to
 - GPX 1.1 canonical schema: https://www.topografix.com/gpx/1/1/
 
 This is a **proposal and sanitized HAR finding**, not implemented functionality, no new browser permissions, and no change to the v0.1.0 release gate.
+
+## Implementation status after user approval
+
+The user approved the two-layer adapter direction and requested saved-route support on multiple Touring Supporter pages **before public release**. Previous prospective language in sections 2–6 above should now be read as the design exploration that preceded implementation. The current source implements:
+
+- Read-only planned route fetch at the **confirmed** API route path with strict 32-hex-character ID validation and response-ID equality check.
+- Source registry that selects recorded-ride or planned-route adapter based on the currently displayed page, without sniffing network traffic.
+- Common GeoJSON decoding for planned route `FeatureCollection/LineString`, joining identical boundaries only; full geometry retained.
+- GPX 1.1 `trk` without fake timestamps or altitudes, planned route filename `保存ルート_タイトル.gpx`, and popup type labeling.
+- Synthetic tests for invalid geometry, disconnected segments, identifier mismatch and authentication errors.
+
+These tests prove the implementation handles the **observed** HAR shape under simulation, **not** that Firefox/Chrome/Edge browser compatibility of the new route type has been demonstrated. The latter is an explicit release gate.
+
+The earlier preference to ship `0.1.0` with recorded rides only is superseded by the latest user direction: test two Touring Supporter page types, then prepare for publication. The public version number is **not** increased automatically. Do not attempt speculative authenticated access to other NAVITIME products.
