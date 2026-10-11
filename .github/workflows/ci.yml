@@ -22,9 +22,9 @@ jobs:
         run: npm run ci
       - name: Package check
         run: |
-          unzip -t dist/navitime-gpx-exporter-firefox-0.0.1.zip
-          unzip -t dist/navitime-gpx-exporter-chrome-0.0.1.zip
-          unzip -t dist/navitime-gpx-exporter-edge-0.0.1.zip
+          unzip -t dist/navitime-gpx-exporter-firefox-*.zip
+          unzip -t dist/navitime-gpx-exporter-chrome-*.zip
+          unzip -t dist/navitime-gpx-exporter-edge-*.zip
       - name: Upload ZIP artifacts
         if: matrix.node == '22'
         uses: actions/upload-artifact@v4
