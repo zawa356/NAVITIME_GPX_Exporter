@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "NAVITIME GPX Exporter",
   "description": "Export your own NAVITIME Touring Supporter ride track to a GPX file. Unofficial.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "permissions": [
     "activeTab"
   ],
