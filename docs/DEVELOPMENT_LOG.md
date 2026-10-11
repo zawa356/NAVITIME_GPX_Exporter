@@ -211,3 +211,10 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.96: Replaced array-spread append for line joins with an indexed loop to avoid JavaScript argument-count limits on long polyline sections.
 - The user's private route HAR remains solely an inspection input; no route coordinates, exact route ID, session tokens, or raw response bodies were added to the repository. No unsupported remote services are probed.
 - Next human step: use CI's new `0.0.2` artifact, first in Firefox on the user's saved-route page, then regression-test recorded rides, then repeat on Chrome and Edge. Compare the saved-route output's expected approximate 2,614 vertices against the original reference HAR **locally**.
+
+## Firefox Safe Browsing download block (2026-10-11)
+- During first 0.0.2 delivery, user reported Firefox blocking a download with the exact Japanese malware warning. The screenshot does **not** identify the filename. We advised against pressing `ダウンロードを許可` until checked.
+- Independently obtained GitHub Actions' generated outer ZIP for 0.0.2 (36,224 bytes, 3 nested Firefox/Chrome/Edge ZIPs) and a previous 0.0.1 artifact (26,494 bytes). Every packed 0.0.2 file matched the current GitHub source Git Blob SHA; no unexpected files or executable payloads were observed. Code/build audit showed only minimal `activeTab` site-scoped permissions, no third-party JS dependencies or telemetry.
+- This is **not** enough to assert a false positive. Mozilla documents the exact warning as Firefox's download protection/Safe Browsing classification.
+- 0.0.99: added [forensic report](TEST_REPORTS/2026-10-11-firefox-zip-warning.md) with package hashes, provenance, limitations and one next question: **which filename was blocked?**
+- The new 0.0.2 saved-route live browser acceptance is **blocked pending a safe installation**; do not count it as passed.
