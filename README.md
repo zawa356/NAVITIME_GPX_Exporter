@@ -1,9 +1,11 @@
 # NAVITIME GPX Exporter
 
+![NAVITIME GPX Exporter application icon](artwork/icon-source.png)
+
 **Export recorded rides and saved planned routes from NAVITIME Touring Supporter to GPX 1.1 — directly in your browser.**
 
 [![CI](https://github.com/zawa356/NAVITIME_GPX_Exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/zawa356/NAVITIME_GPX_Exporter/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-0.0.2--dev-blue)
+![Version](https://img.shields.io/badge/version-0.0.3--dev-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Browser](https://img.shields.io/badge/browsers-Firefox%20%7C%20Chrome%20%7C%20Edge-informational)
 
@@ -22,7 +24,7 @@
 
 ## Quick Start / クイックスタート
 
-**Requirements:** Node.js 20+, `npm`, `zip` (for packaged builds). A logged-in NAVITIME Touring Supporter account.
+**Requirements:** Node.js 20+, `npm`, `zip` and ImageMagick (`magick` or `convert`) to generate icons. The GitHub Actions builder provides the ready-to-install packages. A logged-in NAVITIME Touring Supporter account.
 
 ```bash
 git clone https://github.com/zawa356/NAVITIME_GPX_Exporter.git
@@ -86,7 +88,7 @@ See [saved-route design and evidence](docs/PROPOSALS/SAVED_ROUTE_EXPORT.md), [ar
 
 ## Development
 
-Latest development package version: **0.0.2**. Each GitHub Actions run provides Firefox, Chrome and Edge ZIPs. Do not reuse older `0.0.1` test artifacts when checking saved routes. Development Git tags `0.0.x` label individual commit milestones, not independently published extension releases.
+Latest development package version: **0.0.3**. Each GitHub Actions run provides Firefox, Chrome and Edge ZIPs. Do not reuse previous builds when checking changes. Development Git tags `0.0.x` label individual commit milestones, not independently published extension releases.
 
 
 ```bash
@@ -96,7 +98,7 @@ npm run build  # dist/{firefox,chrome,edge}, plus ZIP packages
 npm run ci     # all three
 ```
 
-CI runs on pushes and pull requests and archives ZIPs as build artifacts. It never fetches user accounts, logs, or private track data. **Do not commit or open GitHub Issues with HAR files, authentication tokens, private tracks or exported GPX.**
+CI runs on pushes and pull requests and archives ZIPs plus the 512px store listing icon as build artifacts. The logo is included in the repository under `artwork/icon-source.png`; the build automatically renders PNGs in `dist/<browser>/icons/`, referenced by `manifest.json` `icons` and `action.default_icon`. The store listing icon is generated at `dist/store-assets/icon-512.png`. No manual icon registration is needed when installing the unpacked extension. It never fetches user accounts, logs, or private track data. **Do not commit or open GitHub Issues with HAR files, authentication tokens, private tracks or exported GPX.**
 
 ## Privacy, support, license
 

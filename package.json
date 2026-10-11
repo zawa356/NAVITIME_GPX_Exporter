@@ -1,13 +1,14 @@
 {
   "name": "navitime-gpx-exporter",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Unofficial GPX exporter for Touring Supporter ride logs and planned saved routes",
   "scripts": {
     "test": "node --test tests/*.test.cjs",
     "check": "node --check src/core/errors.js && node --check src/core/http.js && node --check src/core/track.js && node --check src/formats/geojson.js && node --check src/formats/gpx.js && node --check src/services/touring-supporter.js && node --check src/services/saved-route.js && node --check src/services/registry.js && node --check src/extension/content.js && node --check src/popup/popup.js",
     "build": "node scripts/build.cjs",
-    "ci": "npm run check && npm test && npm run build"
+    "ci": "npm run check && npm test && npm run build && npm run verify:icons",
+    "verify:icons": "node scripts/verify-icons.cjs"
   },
   "license": "MIT",
   "engines": {

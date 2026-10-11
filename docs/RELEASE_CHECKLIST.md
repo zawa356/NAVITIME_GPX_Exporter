@@ -41,6 +41,8 @@ The saved-route adapter was developed from **one real HAR** plus synthetic tests
 Recorded-ride compatibility remains an independent regression gate. Verify **both** page types before increasing the release version to 0.1.0. Unsupported routes/other NAVITIME services remain out-of-scope until separately validated.
 
 ## Store & documentation
+- [ ] Built extension for Firefox, Chrome, Edge contains registered `icons` and `action.default_icon`, and asset dimensions are verified by `npm run verify:icons`.
+- [ ] Review `dist/store-assets/icon-512.png` at full size for crispness and store policy; keep official NAVITIME trademarks out of project icon.
 - [ ] Validate current store policies and NAVITIME service terms.
 - [ ] Confirm use of NAVITIME in display name does not imply endorsement.
 - [ ] Confirm Firefox manifest privacy declaration and add-on ID; obtain Mozilla signing.
