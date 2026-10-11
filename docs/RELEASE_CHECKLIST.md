@@ -11,6 +11,9 @@
 - [ ] Review code for secrets, personal GPS histories, HARs, and unnecessary dependencies.
 
 ## Manual browser matrix (must be performed before public release)
+
+**Testing prerequisite:** Remove temporary PoC extensions from Firefox and reload the NAVITIME tab before every formal acceptance test. A previously observed on-page PoC banner reported 1,436 points while a separately supplied GPX contained 539 points; the two are **not verified** as the same export. See [second-log report](TEST_REPORTS/2026-10-11-firefox-second-log.md). Current extension UI must remain popup-only.
+
 | Test | Firefox | Chrome | Edge |
 | --- | --- | --- | --- |
 | Popup shows title + date | ✅ | ☐ | ☐ |
