@@ -60,3 +60,15 @@ The milestone sequence is a **commit naming convention**, not a claim that all G
 
 ## Privacy invariant
 Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or API response bodies in docs, source, fixtures, Actions or Issues. All committed test data should be artificial.
+
+## Post-merge quality hardening (2026-10-11)
+- PR #1 merged to `main` as `e4696f30f59e34e93d5f6bdf82d37300ef08236e` after the Node 20/22 Actions checks passed at development commit `2ef4195d90a5514bb741f85c65a7176c36d1db73`. The first CI run exposed a synthetic filename test expectation error, which was corrected in focused commits (0.0.25 and 0.0.26).
+- 0.0.28: Added fake, synthetic same-origin API integration tests for Touring Supporter endpoint order, response validation and authentication failure modes; no real GPS history or API access.
+- 0.0.29: Added browser-store publication preparations with non-affiliation language and specific prerequisites.
+- Note: Git tag creation is not available through the current GitHub connector actions; do not confuse commit-label milestones with signed/tagged distribution artifacts.
+
+## Git milestone tag automation (0.0.31)
+- Added `.github/workflows/ci.yml` job `tag-development-milestones`, gated behind a successful full Node 20/22 CI run on a push to `main` only.
+- Scans reachable Git commit subjects ending with `(0.0.N)`, creates lightweight tags for those commits, refuses to overwrite tags pointing to different commits, and pushes the tags. This honors the requested sequential internal milestone refs without publishing a 0.1.0 release.
+- It requires Actions `contents: write` and repository settings that permit GitHub Actions tag pushes; check the post-merge job result before assuming tags exist.
+- 0.0.32 records the tag-job decision and what remains to verify. Do not call these tags releases.
