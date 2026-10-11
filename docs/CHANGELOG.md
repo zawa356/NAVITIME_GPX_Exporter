@@ -46,3 +46,9 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.49: Marked Chrome popup and single-ride export PASS in the release checklist.
 - 0.0.50: Added cross-browser byte-for-byte comparison results (Chrome identical to Firefox export of the same ride) and outstanding verification tasks to the development log.
 - 0.0.51: Changelog synchronized. Functional extension code and package version remain unchanged at development version 0.0.1.
+
+## 0.0.52–0.0.55 — Edge and three-browser positive-path acceptance (2026-10-11)
+- 0.0.52: Documented Microsoft Edge popup and user-owned GPX export; 2,779 points, one segment, zero mismatches vs source JSON.
+- 0.0.53: Firefox, Chrome and Edge positive-path acceptance matrix all PASS; byte-for-byte GPX equality across three browsers recorded.
+- 0.0.54: Expanded detailed agent handoff log with Edge outcome and unresolved error-path, XSD and store-publication gates.
+- 0.0.55: Changelog synchronized. Development-only commit milestone; manifest/package version remains 0.0.1.
