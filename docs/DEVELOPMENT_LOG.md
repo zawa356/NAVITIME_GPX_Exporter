@@ -165,3 +165,42 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.57: Confirmed Firefox unsupported-page error response in release matrix.
 - 0.0.58: This development-log note and handoff.
 - No raw HAR, JSON, GPX, authentication token, route ID, screenshot or route coordinates committed. The first public version 0.1.0 scope is not changed by this investigation.
+
+## Development 0.0.2: dual Touring Supporter page types (2026-10-11)
+
+**Decision and scope**: User approved a two-level adapter design (NAVITIME service acquisition and generic format decoders), permits *offline/synthetic speculative implementations* for unsubscribed NAVITIME services while requiring the distinction between Experimental and verified. Before public 0.1.0, requested a functioning extension on **multiple page types within Touring Supporter**, specifically recorded rides and saved planned routes. No store publication or user data sharing authorized yet.
+
+**HAR evidence** (source kept private):
+- Confirmed `GET /api/v1/riders/routes/{routeId}`, 32-hex `public_route_id` equal to request ID, `route.datum=wgs84`, `route.unit=degree`.
+- `route.geojson` with 35 consecutive `LineString`s and 2,648 raw vertices including 34 identical segment-boundary duplicates → 2,614 distinct ordered vertices. No per-vertex time/elevation.
+- `title` and `register_time` available; creation/registration time is *not* an actual GPS start time.
+- Original real ride adapter's API and GPX serialization tested previously in all three browsers; do not regress it.
+
+**Implementation milestones and reasoning**:
+- 0.0.60: Shared authenticated, same-origin read-only JSON API helper. Request path is constrained to known API subtree; response errors contain no raw payload.
+- 0.0.61: Generic planned-route GeoJSON format decoder; validates degrees/finite coordinates, joins only identical adjacent feature boundaries, splits disconnected sections.
+- 0.0.62: Dedicated Touring Supporter planned saved-route adapter with strict URL, id, datum and unit checks; summary title/date/label and normalized geometry.
+- 0.0.63: Minimal bundled source registry dispatches either recorded-ride or saved-route adapter. No global network sniffer or remote code loader.
+- 0.0.64: Existing recorded-ride adapter delegates to the shared transport without changing its API contract.
+- 0.0.65: GPX serializer omits metadata/point times and elevations when absent; preserves previous ride XML formatting.
+- 0.0.66: Planned-route filename `保存ルート_タイトル.gpx`, sanitized and no invented ride start; recorded filename unchanged.
+- 0.0.67: Content script dispatches by active-page source and validates source identity plus exact page URL before saving.
+- 0.0.68–0.0.70: Popup labels data as recorded/planned and displays 登録日 or 記録日 accordingly; original Firefox width fix retained.
+- 0.0.71–0.0.74: Both MV3 manifests, build source list and Node syntax check updated. No additional host or cookie permissions.
+- 0.0.75: Synthetic saved-route contract/geometry/GPX tests for endpoint order, identifiers, missing elevation/time, disconnected routes, invalid data and auth errors.
+- 0.0.76: Release matrix expanded to require two page types in Firefox, Chrome and Edge.
+- 0.0.77–0.0.81: README, privacy policy, requirements baseline, architecture and former proposal updated.
+- 0.0.82: Synthetic end-to-end Chrome-compatible extension messaging tests: recorded/saved export, unsupported page, navigation cancellation.
+- 0.0.83–0.0.87: Bumped development package to **0.0.2** to prevent accidentally testing old artifacts; version in diagnostics reads manifest; CI ZIP check accepts version changes.
+- 0.0.88–0.0.90: Updated quick start, staged three-browser test plan and draft store listing.
+
+**Design limits**:
+- Planned saved routes are emitted as GPX `<trk>` with no `<time>`/`<ele>`. Consecutive identical feature joins are de-duplicated, while disconnected features remain separate track segments. Planned `<wpt>` and `<rte>` outputs are deferred.
+- Popup saved-route summary fetches a complete route JSON response (because summary+geometry are provided together), and export re-fetches for freshness. This is in-browser processing only; nothing persists in extension storage.
+- Extra NAVITIME services are not enabled, because no verified authenticated endpoint was supplied. Future Experimental adapters can be developed offline from authorized evidence and promoted only after user live testing.
+- No HAR, account identifier, token, private coordinate, or original route metadata/JSON has been committed.
+
+**Current acceptance state**:
+- Pre-existing recorded-ride positive-path tests (0.0.1) passed in Firefox/Chrome/Edge, with identical 2,779-point output. Run regression on new 0.0.2 build.
+- New saved-route code: synthetic tests pass in CI as of the implementation branch; **real-browser tests outstanding**. See `docs/TEST_PLANS/TOURING_MULTI_PAGE.md`.
+- Do not merge release readiness with CI passing. Public 0.1.0, manifest signing, and store publication remain blocked until user-provided multi-browser acceptance and security/privacy review.
