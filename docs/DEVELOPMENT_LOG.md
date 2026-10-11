@@ -72,3 +72,13 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - Scans reachable Git commit subjects ending with `(0.0.N)`, creates lightweight tags for those commits, refuses to overwrite tags pointing to different commits, and pushes the tags. This honors the requested sequential internal milestone refs without publishing a 0.1.0 release.
 - It requires Actions `contents: write` and repository settings that permit GitHub Actions tag pushes; check the post-merge job result before assuming tags exist.
 - 0.0.32 records the tag-job decision and what remains to verify. Do not call these tags releases.
+
+## Verification completed after PR #2 — 2026-10-11
+- PR #2 merged to `main` at `719b9488dc7067e84a1ea846007f0b0f98156aa5`.
+- GitHub Actions run: https://github.com/zawa356/NAVITIME_GPX_Exporter/actions/runs/38126368065
+- Node 20 test-and-package: **success**; Node 22 test-and-package: **success**.
+- Development tag job: **success**. Confirmed 32 immutable lightweight tags `0.0.1`–`0.0.32` through GitHub Git references API.
+- CI artifact `extension-builds` (ID `11697401987`) contains three built extension ZIPs; download from the Actions run while the artifact remains retained.
+- The repository is currently **private**. Repository visibility is not automatically changed by creating builds or tags.
+- **Not verified**: live NAVITIME session in Firefox/Chrome/Edge, store approvals, signed Firefox installation, trademark/service-terms compliance. Remain pre-release gates for public `0.1.0`.
+- 0.0.33: Recorded completion evidence and the explicit distinction between development artifacts and public release.
