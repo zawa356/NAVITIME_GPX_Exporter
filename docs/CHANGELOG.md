@@ -58,3 +58,13 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.57: Firefox correctly rejects the currently unsupported saved-route view; marked negative-path check passed.
 - 0.0.58: Documented differentiation of planned routes vs actual GPS logs, and proposed non-invasive on-demand API access over global traffic sniffing.
 - 0.0.59: Updated changelog; **proposal only**. No implementation of planned-route support or new permissions, and no scope expansion of the first public 0.1.0.
+
+## 0.0.60–0.0.92 — Touring Supporter saved-route implementation (2026-10-11)
+- **0.0.60–0.0.64** — Shared safe same-origin API GET helper, planned GeoJSON decoder, saved-route API adapter, source registry, compatibility-preserving recorded ride adapter refactor.
+- **0.0.65–0.0.70** — Optional GPX point time/elevation for planned routes, distinct route filename without fake start time, tab-side source dispatch and context checks, popup kind/date labels.
+- **0.0.71–0.0.75** — New modules added to Firefox/Chromium manifests, build and CI syntax checks; synthetic planned-route regression tests.
+- **0.0.76–0.0.82** — Two-source quality gate, README, privacy, architecture, requirements and proposal revisions; synthetic end-to-end extension messaging tests.
+- **0.0.83–0.0.87** — Development extension package advanced from 0.0.1 to **0.0.2** (distinct test artifact); diagnostics use manifest version; CI dynamically checks archive versions.
+- **0.0.88–0.0.91** — Quick start/test plan, store listing and detailed agent handoff documentation.
+- **0.0.92** — Changelog synchronized. New saved-route implementation is **experimental pending Firefox/Chrome/Edge manual test**. Prior recorded-ride implementation also needs 0.0.2 regression verification.
+- The tag names identify incremental development commits. There is **no public 0.1.0 release**, and only supported on-demand NAVITIME Touring Supporter API paths are enabled.
