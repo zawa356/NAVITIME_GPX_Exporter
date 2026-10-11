@@ -258,3 +258,9 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 **Important deployment notes:** GitHub Actions is intended to produce ready-made ZIPs, so end users do not need ImageMagick. Maintainers building locally now need ImageMagick in addition to Node and ZIP. Neither AMO nor Chrome/Edge stores have been auto-submitted or published. First public version remains 0.1.0 only after the remaining two-page/multi-browser tests.
 
 **Open validation:** Inspect successful CI status, check generated PNG dimensions and that all extension ZIPs include referenced files. Test the icon visually in browser toolbar and popup; check enlarged 512px storefront artwork sharpness before submitting stores.
+
+## CI icon generator bootstrap fix — 2026-10-11
+- Initial PR #14 CI run failed after **all 28 Node tests succeeded**. The GitHub-hosted `ubuntu-latest` runner image did not contain ImageMagick `magick` or `convert` (runner may change over time).
+- 0.0.126: Added an explicitly checked conditional install of Ubuntu's `imagemagick` package with `apt-get` in the `test-and-package` CI job before `npm run ci`. This applies to CI only; packaged add-ons do not require ImageMagick at runtime.
+- New CI run `38143830099`: Node 20 and Node 22 `test-and-package` **both SUCCESS**; this includes 28 unit tests, ZIP generation and `scripts/verify-icons.cjs` checking each icon's PNG dimensions and Manifest paths. Confirmed from GitHub Actions job summaries.
+- 0.0.127: Recorded dependency issue, corrective action, and verified CI result. User-facing installation uses prebuilt ZIP from successful GitHub Actions run and does not install ImageMagick.
