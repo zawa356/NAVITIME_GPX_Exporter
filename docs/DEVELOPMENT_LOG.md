@@ -82,3 +82,29 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - The repository is currently **private**. Repository visibility is not automatically changed by creating builds or tags.
 - **Not verified**: live NAVITIME session in Firefox/Chrome/Edge, store approvals, signed Firefox installation, trademark/service-terms compliance. Remain pre-release gates for public `0.1.0`.
 - 0.0.33: Recorded completion evidence and the explicit distinction between development artifacts and public release.
+
+## Firefox first live test: popup collapses to a line (2026-10-11)
+
+### Evidence
+- User successfully loaded the 0.0.1 temporary Firefox extension and observed an initial loading message.
+- Opening the toolbar action produced an almost one-pixel vertical strip over the Touring Supporter map, preventing access to the GPX save button. A screenshot was provided **in chat only**, not added to the repository because the underlying map and history are private.
+
+### Analysis (suspected root cause, awaiting real-browser confirmation)
+- Initial `src/popup/popup.css` specified `body{width:330px;max-width:100vw}`.
+- Firefox WebExtensions popups **derive their viewport width from the popup body layout**, so using the viewport width `100vw` as a maximum of that same body can be circular. The reported symptom is consistent with a collapsed computed popup width. This is a hypothesis until user retest, not a proven Firefox rendering defect.
+- Independently, `button{display:block}` can override user-agent `[hidden]` handling, potentially showing retry buttons before they are needed.
+
+### Changes
+- 0.0.34: Drop viewport-relative `max-width:100vw`; explicitly size the `body` at 330px including `min-width`. Add author-level `[hidden]{display:none!important}` so hidden controls remain hidden.
+- 0.0.35: Add automated static regression coverage of popup dimensions and `hidden` visibility.
+- 0.0.36: Record the live-test failure and corrective hypothesis for the next AI agent.
+
+### Immediate acceptance plan
+1. After CI passes, download a **new** `extension-builds` artifact, not the one from the previous CI run.
+2. Remove the old temporary extension in Firefox `about:debugging`; unpack the new Firefox ZIP; load its `manifest.json`.
+3. Open the ride detail URL and click the toolbar button. Confirm popup has visible approximately 330px width and correct title + date.
+4. Only then click GPX save and verify the returned ZIP/GPX.
+5. If it still collapses, inspect extension popup using `about:debugging → Inspect`, computed `document.body.getBoundingClientRect().width`, and console. Do not request/share cookies, HTTP response bodies, HAR, or tracks for UI-only debugging.
+
+### Reference
+- MDN WebExtensions popup sizing: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Popups (Firefox popup size is derived from `body` in standards mode).
