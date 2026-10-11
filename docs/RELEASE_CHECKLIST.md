@@ -20,7 +20,7 @@
 | Logged-in single-ride export | ✅ | ✅ | ✅ |
 | GPX displayed correctly in map app | ☐ | ☐ | ☐ |
 | Different ride after SPA navigation | ☐ | ☐ | ☐ |
-| Invalid/unsupported page | ☐ | ☐ | ☐ |
+| Invalid/unsupported page | ✅ | ☐ | ☐ |
 | Logged-out/expired session | ☐ | ☐ | ☐ |
 | Network / API / empty / corrupted response | ☐ | ☐ | ☐ |
 | Retry and safe diagnostic copy | ☐ | ☐ | ☐ |
@@ -28,7 +28,7 @@
 | Navigation away during export | ☐ | ☐ | ☐ |
 | Duplicate export clicks | ☐ | ☐ | ☐ |
 
-**Firefox proof:** [2026-10-11 test report](TEST_REPORTS/2026-10-11-firefox.md) documents a successful 2,779-point source-to-GPX comparison with zero coordinate, altitude or time mismatches. Full GPX 1.1 XSD validation and map-application rendering remain pending.\n\n**Chrome proof:** [2026-10-11 Chrome live-test report](TEST_REPORTS/2026-10-11-chrome.md) shows one successfully downloaded, byte-for-byte identical GPX to Firefox, with 2,779/2,779 point-coordinate/elevation/timestamp matches against private source JSON. This checks basic export only; Chrome negative cases remain pending.\n\n**Edge proof:** [2026-10-11 Edge acceptance report](TEST_REPORTS/2026-10-11-edge.md). Positive-path GPX export is now evidenced on **all three browsers**, with byte-for-byte identical output and 2,779 points matching the private original source JSON. Negative cases, GPX 1.1 XSD validation and map-app import remain pending.\n\n## Store & documentation
+**Firefox proof:** [2026-10-11 test report](TEST_REPORTS/2026-10-11-firefox.md) documents a successful 2,779-point source-to-GPX comparison with zero coordinate, altitude or time mismatches. Full GPX 1.1 XSD validation and map-application rendering remain pending.\n\n**Chrome proof:** [2026-10-11 Chrome live-test report](TEST_REPORTS/2026-10-11-chrome.md) shows one successfully downloaded, byte-for-byte identical GPX to Firefox, with 2,779/2,779 point-coordinate/elevation/timestamp matches against private source JSON. This checks basic export only; Chrome negative cases remain pending.\n\n**Edge proof:** [2026-10-11 Edge acceptance report](TEST_REPORTS/2026-10-11-edge.md). Positive-path GPX export is now evidenced on **all three browsers**, with byte-for-byte identical output and 2,779 points matching the private original source JSON. Negative cases, GPX 1.1 XSD validation and map-app import remain pending.\n\n**Firefox unsupported-page proof:** A saved-route view (which v0.0.1 does not yet support) showed the expected red guidance, disabled `GPXを保存`, visible retry and a collapsed diagnostics section. No GPS data was exported. The user separately requested support for saved planned routes as a future feature; see [design proposal](PROPOSALS/SAVED_ROUTE_EXPORT.md).\n\n## Store & documentation
 - [ ] Validate current store policies and NAVITIME service terms.
 - [ ] Confirm use of NAVITIME in display name does not imply endorsement.
 - [ ] Confirm Firefox manifest privacy declaration and add-on ID; obtain Mozilla signing.
