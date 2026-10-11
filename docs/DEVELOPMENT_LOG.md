@@ -143,3 +143,13 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.48: New [Chrome live acceptance report](TEST_REPORTS/2026-10-11-chrome.md).
 - 0.0.49: Release checklist updated to PASS for the Chrome popup and initial export.
 - 0.0.50: Development log updated, with next manual acceptance target Microsoft Edge. Further browser negative tests, signed store builds and GPX XSD validation remain unperformed. No source code change was necessary.
+
+## Edge manual test and cross-browser parity (2026-10-11)
+- User loaded the development MV3 extension in **Microsoft Edge**, confirmed normal-width popup with correct ride title, date and export button, and uploaded the downloaded GPX file.
+- Offline verification (no track uploaded to GitHub): valid XML, GPX 1.1 namespace/version; 1 track, 1 segment, **2,779 points**, each with timestamp and elevation. All 2,779 points match the user's private original NAVITIME JSON when comparing ordered coordinates, altitude and absolute times.
+- Verified the three files produced independently by Firefox, Chrome and Edge are **byte-for-byte identical**, 277,018 bytes apiece, with identical SHA-256 digests. Browser-applied local `(1)`/`(2)` filename suffixes do not affect file content.
+- 0.0.52: [Edge acceptance report](TEST_REPORTS/2026-10-11-edge.md), retaining only non-sensitive aggregate verification facts.
+- 0.0.53: Updated release acceptance matrix: the title/date popup and signed-in single-ride export pass on all three browser families.
+- 0.0.54: Recorded cross-browser verification and remaining release gates in this development log.
+- Outstanding: GPX 1.1 XSD check, independent map viewer, unsupported-page/expired-session/network/API errors, retry and privacy-safe copy, popup-close/navigation behavior, full manual regression, Mozilla signing and Chrome/Edge store procedures.
+- First public release remains **0.1.0** after full acceptance; existing build version is still **0.0.1**. Do not treat the development tags as formal releases.
