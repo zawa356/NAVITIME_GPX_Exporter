@@ -236,3 +236,25 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.108: [complete aggregate comparison report](TEST_REPORTS/2026-10-11-firefox-saved-route-fidelity.md).
 - 0.0.109: Firefox saved-route data fidelity/section merging marked PASS in the release matrix; popup-title/date, independent road map visualization, GPX XSD, Chrome/Edge saved-route and 0.0.2 recorded-ride regression remain pending.
 - 0.0.110: This detailed agent handoff update; no production source code change.
+
+## Approved project icon implemented (2026-10-11)
+
+**User instruction:** Take the already approved blue/green route-to-file app icon, commit the artwork, and configure the extension so it becomes its icon automatically. User had previously requested eventual AMO and Chromium-store publication with less manual metadata entry.
+
+**Provenance and privacy:** The source is derived from the approved generated icon. It is a compact, palette-optimized **128×128 PNG** committed as an actual Git binary blob at `artwork/icon-source.png` (git object SHA `6999217fe3eb54435f9f2a7d490cfba0534e8725`; SHA-256 `b395b35f754c88df5751444905b3ff68e693099d80a9e6df8b21dface50c77ed`). Original output was 1254×1254; this derivative retains the design but is lower resolution. No NAVITIME trademark, personal GPS data or third-party images are embedded.
+
+**Milestones:**
+- 0.0.112: Add PNG binary artifact to repository via Git blob/tree commit, not an external URL.
+- 0.0.113: Extend `scripts/build.cjs` to generate 16/32/48/96/128px icons and a 512px listing image automatically with ImageMagick; package five sizes in each Firefox/Chrome/Edge ZIP.
+- 0.0.114–0.0.115: Add `icons` and `action.default_icon` fields to both browser-specific Manifest V3 files. This is the actual automatic registration mechanism, recognized by the browser and extension stores.
+- 0.0.116: Bump extension development version to **0.0.3**; add `verify:icons` into CI.
+- 0.0.117: Automated post-build verification of manifest references and expected PNG pixel sizes, plus the 512px listing asset.
+- 0.0.118: Add store-listing artwork to GitHub Actions `extension-builds` artifact.
+- 0.0.119: README icon preview, new build requirements, version and automatic-icon documentation.
+- 0.0.120: `docs/BRANDING.md` distinguishes package icon auto-registration from separately authenticated store-listing creation/submission.
+- 0.0.121: Added synthetic unit test that checks the PNG source and both manifest icon declarations.
+- 0.0.122–0.0.123: Store submission preparation and public-release checklist updated with icon requirements.
+
+**Important deployment notes:** GitHub Actions is intended to produce ready-made ZIPs, so end users do not need ImageMagick. Maintainers building locally now need ImageMagick in addition to Node and ZIP. Neither AMO nor Chrome/Edge stores have been auto-submitted or published. First public version remains 0.1.0 only after the remaining two-page/multi-browser tests.
+
+**Open validation:** Inspect successful CI status, check generated PNG dimensions and that all extension ZIPs include referenced files. Test the icon visually in browser toolbar and popup; check enlarged 512px storefront artwork sharpness before submitting stores.
