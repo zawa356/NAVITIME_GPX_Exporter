@@ -92,3 +92,11 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.109: Saved-route Firefox data fidelity/continuity accepted, but independent road-map match and formal XSD validation remain unverified.
 - 0.0.110: Extended detailed handoff log, with geographic matching limitations and follow-on browser regression tests.
 - 0.0.111: Changelog synchronized; no executable code changed, no 0.1.0 public release.
+
+## 0.0.112–0.0.125 — official project artwork and automatic Manifest icons
+- 0.0.112: Commit the user-approved original-style map/route/download icon as an optimized PNG binary source.
+- 0.0.113–0.0.115: Automatically resize into five icon sizes and store artwork; register both `manifest.icons` and `action.default_icon` for Firefox and Chromium.
+- 0.0.116–0.0.118: Update development package to **0.0.3**; verify PNG dimensions and manifest paths in CI; upload listing artwork with ZIP binaries.
+- 0.0.119–0.0.123: Update README, branding, marketplace submission notes, release checklist and manifest regression tests.
+- 0.0.124: Preserve technical implementation/provenance details in `docs/DEVELOPMENT_LOG.md`.
+- 0.0.125: Synchronize changelog. **Icons are automatically registered in the installed extension**, but authenticated AMO/Chrome/Edge listing submissions are not performed. Storefront 512px artwork is generated from the 128px derivative, requiring visual review before publication.
