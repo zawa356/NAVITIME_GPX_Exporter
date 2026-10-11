@@ -16,8 +16,8 @@
 
 | Test | Firefox | Chrome | Edge |
 | --- | --- | --- | --- |
-| Popup shows title + date | ✅ | ☐ | ☐ |
-| Logged-in single-ride export | ✅ | ☐ | ☐ |
+| Popup shows title + date | ✅ | ✅ | ☐ |
+| Logged-in single-ride export | ✅ | ✅ | ☐ |
 | GPX displayed correctly in map app | ☐ | ☐ | ☐ |
 | Different ride after SPA navigation | ☐ | ☐ | ☐ |
 | Invalid/unsupported page | ☐ | ☐ | ☐ |
@@ -28,7 +28,7 @@
 | Navigation away during export | ☐ | ☐ | ☐ |
 | Duplicate export clicks | ☐ | ☐ | ☐ |
 
-**Firefox proof:** [2026-10-11 test report](TEST_REPORTS/2026-10-11-firefox.md) documents a successful 2,779-point source-to-GPX comparison with zero coordinate, altitude or time mismatches. Full GPX 1.1 XSD validation and map-application rendering remain pending.\n\n## Store & documentation
+**Firefox proof:** [2026-10-11 test report](TEST_REPORTS/2026-10-11-firefox.md) documents a successful 2,779-point source-to-GPX comparison with zero coordinate, altitude or time mismatches. Full GPX 1.1 XSD validation and map-application rendering remain pending.\n\n**Chrome proof:** [2026-10-11 Chrome live-test report](TEST_REPORTS/2026-10-11-chrome.md) shows one successfully downloaded, byte-for-byte identical GPX to Firefox, with 2,779/2,779 point-coordinate/elevation/timestamp matches against private source JSON. This checks basic export only; Chrome negative cases remain pending.\n\n## Store & documentation
 - [ ] Validate current store policies and NAVITIME service terms.
 - [ ] Confirm use of NAVITIME in display name does not imply endorsement.
 - [ ] Confirm Firefox manifest privacy declaration and add-on ID; obtain Mozilla signing.
