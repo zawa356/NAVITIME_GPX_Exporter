@@ -264,3 +264,20 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.126: Added an explicitly checked conditional install of Ubuntu's `imagemagick` package with `apt-get` in the `test-and-package` CI job before `npm run ci`. This applies to CI only; packaged add-ons do not require ImageMagick at runtime.
 - New CI run `38143830099`: Node 20 and Node 22 `test-and-package` **both SUCCESS**; this includes 28 unit tests, ZIP generation and `scripts/verify-icons.cjs` checking each icon's PNG dimensions and Manifest paths. Confirmed from GitHub Actions job summaries.
 - 0.0.127: Recorded dependency issue, corrective action, and verified CI result. User-facing installation uses prebuilt ZIP from successful GitHub Actions run and does not install ImageMagick.
+
+## Git tag publication exception following icon merge (2026-10-11)
+
+- Icon PR #14 was merged into `main`. Both Node 20 and Node 22 test/package jobs **passed** in the main push run [38143973652](https://github.com/zawa356/NAVITIME_GPX_Exporter/actions/runs/38143973652). ImageMagick generated browser icons; all 28 unit tests and manifest/image dimension checks passed. Build artifact `extension-builds` (artifact ID 11703787795) contains the three 0.0.3 ZIPs and the 512px store PNG.
+- The **tag-development-milestones** job failed even though it successfully created several new refs (0.0.112–0.0.117 and 0.0.126–0.0.128). GitHub denied tags **0.0.118–0.0.125**, reporting: `refusing to allow a GitHub App to create or update workflow .github/workflows/ci.yml without workflows permission`. This is a GitHub App/workflows permission limitation, **not a failed package/asset test**.
+- For the eight missing historical tags, retain the unambiguous SHA mapping below. Do **not** move or duplicate tags onto unrelated commits:
+  - 0.0.118 `fb83f7dda90d8990b781855bbb1fbe741602a99b`
+  - 0.0.119 `f600c5edbbabd9a50f3410010c86e880b5d0c614`
+  - 0.0.120 `95dd4117f762088bc96dbfb0d32d953c0fabf641`
+  - 0.0.121 `52cc7512ab09dd3830b0b7bf673176862b819001`
+  - 0.0.122 `3058e5e8d82e6052595dd5131e516709ff93ced2`
+  - 0.0.123 `4c7f75b0950631f5eeb601125fffd1d1b62f3577`
+  - 0.0.124 `e8498723baafa697a63c09d042c6c53c7ec2b1c2`
+  - 0.0.125 `f9f61315b98ae8f06bb82841f92a42b3afe8e6a6`
+- 0.0.129: Skip only these known restricted refs in the current tag automation, with a visible Actions warning, to avoid failing unrelated successful release builds. All further milestone refs should still publish normally.
+- Restoring these missing tags later requires a GitHub credential authorized for workflow changes. The maintainer can use an appropriately scoped human token or adjust GitHub App permissions explicitly; do not place a token in the source repository.
+- 0.0.130: This detailed handoff record.
