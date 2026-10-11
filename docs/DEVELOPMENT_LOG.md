@@ -108,3 +108,13 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 
 ### Reference
 - MDN WebExtensions popup sizing: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Popups (Firefox popup size is derived from `body` in standards mode).
+
+## Firefox live verification after popup width fix (2026-10-11)
+
+- The user installed the rebuilt Firefox extension and supplied a screenshot in which the popup renders at normal width with visible title, record date and save button. This confirms the **regression is resolved in the user's tested environment**; it does not independently establish the CSS root-cause mechanism.
+- User provided a GPX successfully saved via the new popup workflow.
+- Compared the file offline against the separately supplied original NAVITIME JSON: XML parse PASS, 1/1 segments, 2,779/2,779 points, **0 mismatches in per-point longitude, latitude, altitude and absolute timestamp**, in source order. GPX metadata name and UTC start time present; filename start time uses original local offset.
+- The generated GPX itself and source JSON remain private; no real user trace, screenshot, HAR or raw response has been committed.
+- 0.0.37: Added [Firefox private-evidence test summary](TEST_REPORTS/2026-10-11-firefox.md).
+- 0.0.38: Marked Firefox popup and basic logged-in GPX export as PASS in the release checklist.
+- 0.0.39: Updated this comprehensive development log. Next: rendering check in map application, second ride, Chrome/Edge and negative-case acceptance tests. Official GPX XSD validation still outstanding.
