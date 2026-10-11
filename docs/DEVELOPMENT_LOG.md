@@ -66,3 +66,9 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.28: Added fake, synthetic same-origin API integration tests for Touring Supporter endpoint order, response validation and authentication failure modes; no real GPS history or API access.
 - 0.0.29: Added browser-store publication preparations with non-affiliation language and specific prerequisites.
 - Note: Git tag creation is not available through the current GitHub connector actions; do not confuse commit-label milestones with signed/tagged distribution artifacts.
+
+## Git milestone tag automation (0.0.31)
+- Added `.github/workflows/ci.yml` job `tag-development-milestones`, gated behind a successful full Node 20/22 CI run on a push to `main` only.
+- Scans reachable Git commit subjects ending with `(0.0.N)`, creates lightweight tags for those commits, refuses to overwrite tags pointing to different commits, and pushes the tags. This honors the requested sequential internal milestone refs without publishing a 0.1.0 release.
+- It requires Actions `contents: write` and repository settings that permit GitHub Actions tag pushes; check the post-merge job result before assuming tags exist.
+- 0.0.32 records the tag-job decision and what remains to verify. Do not call these tags releases.
