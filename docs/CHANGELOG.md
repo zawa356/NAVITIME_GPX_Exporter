@@ -105,3 +105,8 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.126: CI fix: auto-install ImageMagick on GitHub runners where neither `convert` nor `magick` is present.
 - 0.0.127: Agent handoff log includes original ImageMagick-missing CI failure, remediation and successful Node 20/22 rerun including icon packaging checks.
 - 0.0.128: Changelog synchronized; no external store submission or 0.1.0 release yet.
+
+## 0.0.129–0.0.131 — handle restricted GitHub workflow-tag permissions
+- 0.0.129: Document and explicitly skip historical milestone refs 0.0.118–0.0.125 in the Actions tagging job, because GitHub rejects tagging their workflow-modifying commit ancestry under the current app token's permissions.
+- 0.0.130: Detailed handoff log records the immutable original commit SHAs, verified successful icon/package CI, incomplete tag state and authorization path for later repair.
+- 0.0.131: Changelog synchronized. Browser extension `0.0.3` binaries are valid build artifacts. Tagging job failures are distinct from build/test failures; public 0.1.0 remains not yet released.
