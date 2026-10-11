@@ -40,3 +40,9 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.45: Hard refresh (Ctrl+F5) cleared leftover web-page GPX PoC panel; current popup completed a 539-point, 1-segment export.
 - 0.0.46: Documented this real-user result and remaining source comparison / other-browser acceptance gates.
 - 0.0.47: Changelog updated. No functional source change was necessary; hypothesis remains stale page content, not verified continued installation of the old PoC.
+
+## 0.0.48–0.0.51 — Chrome real-world export verified (2026-10-11)
+- 0.0.48: Documented the first Chrome acceptance report. Chrome popup and export worked; GPX 1.1 track of 2,779 points matched the private source JSON with no coordinate, elevation or timestamp mismatches.
+- 0.0.49: Marked Chrome popup and single-ride export PASS in the release checklist.
+- 0.0.50: Added cross-browser byte-for-byte comparison results (Chrome identical to Firefox export of the same ride) and outstanding verification tasks to the development log.
+- 0.0.51: Changelog synchronized. Functional extension code and package version remain unchanged at development version 0.0.1.
