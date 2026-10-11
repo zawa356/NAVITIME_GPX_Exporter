@@ -100,3 +100,8 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.119–0.0.123: Update README, branding, marketplace submission notes, release checklist and manifest regression tests.
 - 0.0.124: Preserve technical implementation/provenance details in `docs/DEVELOPMENT_LOG.md`.
 - 0.0.125: Synchronize changelog. **Icons are automatically registered in the installed extension**, but authenticated AMO/Chrome/Edge listing submissions are not performed. Storefront 512px artwork is generated from the 128px derivative, requiring visual review before publication.
+
+## 0.0.126–0.0.128 — icon generator CI recovery
+- 0.0.126: CI fix: auto-install ImageMagick on GitHub runners where neither `convert` nor `magick` is present.
+- 0.0.127: Agent handoff log includes original ImageMagick-missing CI failure, remediation and successful Node 20/22 rerun including icon packaging checks.
+- 0.0.128: Changelog synchronized; no external store submission or 0.1.0 release yet.
