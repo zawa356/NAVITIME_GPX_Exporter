@@ -22,3 +22,10 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.25–0.0.26: CI test assertion correction for trailing sanitized filename punctuation; first correction was inaccurate and the follow-up restores observed behavior.
 - For individual commit subjects and pending tasks, see [DEVELOPMENT_LOG.md](DEVELOPMENT_LOG.md).
 - **These development increments are not claims that Git tags 0.0.2–0.0.26 were published.** Package and manifest version remain 0.0.1; the first public version is reserved for 0.1.0.
+
+## 0.0.34–0.0.39 — Firefox popup regression and live acceptance (2026-10-11)
+- 0.0.34–0.0.36: Firefox popup CSS width/hidden fixes, regression tests, and defect analysis (merged in PR #3).
+- 0.0.37: Real Firefox test report. User-confirmed popup and GPX file. Original 2,779-point source and exported GPX were compared locally: zero coordinate, altitude, time or order mismatches.
+- 0.0.38: Updated manual release checklist: Firefox popup rendering and single-ride GPX export PASS; all other browsers and cases pending.
+- 0.0.39: Development log updated with private-evidence testing and next steps.
+- These are **development commit/tag milestones**. They do not change the extension Manifest/package version, which remains 0.0.1 until release preparation.
