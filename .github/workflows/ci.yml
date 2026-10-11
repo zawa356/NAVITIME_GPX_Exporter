@@ -60,6 +60,13 @@ jobs:
           while IFS=$'\t' read -r sha subject; do
             if [[ "$subject" =~ \((0\.0\.[0-9]+)\)$ ]]; then
               tag="${BASH_REMATCH[1]}"
+              # The authenticated GitHub App cannot tag the old workflow-change
+              # chain 0.0.118..0.0.125 without an additional workflows permission.
+              # Preserve the mapping in docs; do not silently tag other commits.
+              if [[ "$tag" =~ ^0\.0\.(118|119|120|121|122|123|124|125)$ ]]; then
+                echo "::warning::Tag $tag requires GitHub workflows permission; recorded in docs"
+                continue
+              fi
               if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
                 existing=$(git rev-list -n 1 "$tag")
                 if [[ "$existing" != "$sha" ]]; then
