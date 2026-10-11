@@ -68,3 +68,9 @@ This document records implementation milestones and decisions so another AI agen
 - **0.0.88–0.0.91** — Quick start/test plan, store listing and detailed agent handoff documentation.
 - **0.0.92** — Changelog synchronized. New saved-route implementation is **experimental pending Firefox/Chrome/Edge manual test**. Prior recorded-ride implementation also needs 0.0.2 regression verification.
 - The tag names identify incremental development commits. There is **no public 0.1.0 release**, and only supported on-demand NAVITIME Touring Supporter API paths are enabled.
+
+## 0.0.93–0.0.97 — QA hardening and handoff
+- 0.0.93: Corrected saved-route filename sanitization regex after review.
+- 0.0.94–0.0.95: Added and corrected ASCII punctuation/digit filename regression coverage.
+- 0.0.96: Avoided spread-induced stack/argument-limit failures when merging long geometry lines.
+- 0.0.97: Recorded these fixes and the open browser-acceptance gate. No change to first-public-release status.
