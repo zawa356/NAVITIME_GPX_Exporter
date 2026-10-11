@@ -153,3 +153,15 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.54: Recorded cross-browser verification and remaining release gates in this development log.
 - Outstanding: GPX 1.1 XSD check, independent map viewer, unsupported-page/expired-session/network/API errors, retry and privacy-safe copy, popup-close/navigation behavior, full manual regression, Mozilla signing and Chrome/Edge store procedures.
 - First public release remains **0.1.0** after full acceptance; existing build version is still **0.0.1**. Do not treat the development tags as formal releases.
+
+## Saved-route discovery during Firefox negative test (2026-10-11)
+
+- User manually tested the current extension on a **saved planned route** view. The popup displayed the expected unsupported-page guidance, the export button was disabled, and retry/diagnostics were available. This is a PASS for the current 0.0.1 negative-path requirement.
+- The user proposed a long-term UX goal: automatically make GPX export available wherever a supported NAVITIME page contains usable route information, not solely by checking one hardcoded URL.
+- A private user-provided HAR was inspected **locally** without copying it into GitHub: `GET /api/v1/riders/routes/{routeId}` returned a route object with `route.geojson`, 35 contiguous LineStrings and 2,648 source vertices (34 repeated joins → 2,614 merged points). Coordinates are WGS84 lon/lat without per-point altitude or time. Also contains five planned stops and navigation guides. An in-memory-only GPX XML transformation parsed without error.
+- The source is a **planned route**, not a recorded ride. The existing strict recorded-track model **cannot** represent absent per-point timestamps; the common geometry model and GPX serializer would need an explicit future design change.
+- Network-wide JSON sniffing was rejected as the default architecture recommendation in favor of source-adapter capability detection and authenticated, targeted read-only fetches. Wide tracking would increase privacy risk and could not generically read response bodies from an isolated MV3 content script.
+- 0.0.56: [Saved route discovery/proposed design](PROPOSALS/SAVED_ROUTE_EXPORT.md), explicitly flagged **NOT IMPLEMENTED** and **PENDING REQUIREMENTS DECISION**.
+- 0.0.57: Confirmed Firefox unsupported-page error response in release matrix.
+- 0.0.58: This development-log note and handoff.
+- No raw HAR, JSON, GPX, authentication token, route ID, screenshot or route coordinates committed. The first public version 0.1.0 scope is not changed by this investigation.

@@ -52,3 +52,9 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.53: Firefox, Chrome and Edge positive-path acceptance matrix all PASS; byte-for-byte GPX equality across three browsers recorded.
 - 0.0.54: Expanded detailed agent handoff log with Edge outcome and unresolved error-path, XSD and store-publication gates.
 - 0.0.55: Changelog synchronized. Development-only commit milestone; manifest/package version remains 0.0.1.
+
+## 0.0.56–0.0.59 — saved-route discovery and future adapter proposal (2026-10-11)
+- 0.0.56: Inspected user-provided HAR locally; found a saved-route JSON API with 35 contiguous LineStrings. Published only anonymized structural findings and proposed capability-based discovery in `docs/PROPOSALS/SAVED_ROUTE_EXPORT.md`.
+- 0.0.57: Firefox correctly rejects the currently unsupported saved-route view; marked negative-path check passed.
+- 0.0.58: Documented differentiation of planned routes vs actual GPS logs, and proposed non-invasive on-demand API access over global traffic sniffing.
+- 0.0.59: Updated changelog; **proposal only**. No implementation of planned-route support or new permissions, and no scope expansion of the first public 0.1.0.
