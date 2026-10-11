@@ -226,3 +226,13 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.104: Release checklist now distinguishes a successful Firefox **download** from pending saved-route **data-completeness verification**.
 - 0.0.105: Multi-page test plan updated to acknowledge the observed download and pending browser / schema tests.
 - Next: privately compare downloaded planned-route GPX with prior HAR geometry (2,614 vertices and 1 segment **only if the same saved route**), confirm no fabricated timestamps/elevation, test 0.0.2 recorded ride, then Chromium siblings. Do not put source/GPX coordinates or session identifiers into GitHub.
+
+## Firefox planned-route GPX 100% source-data fidelity (2026-10-11)
+- The user submitted a saved planned-route GPX file for inspection. It was parsed alongside the previously supplied authenticated HAR **locally** in the private analysis environment; none of the input records or GPS coordinates was committed.
+- HAR source has 35 `LineString` road sections, 2,648 raw vertices and 34 shared endpoints. Expected normalized sequence has 2,614 points; downloaded GPX has exactly 2,614 points, 1 track and 1 segment.
+- Ordered longitude and latitude match the original HAR exactly at **2,614 of 2,614 points; 0 mismatches**. No fabricated `<time>`/`<ele>` data and no metadata start time. The export has no detectable source-to-GPX datum shift, thinning or missing vertices.
+- GPX coordinate-derived path length is ~82.833 km versus NAVITIME's estimated 82.6 km. Largest adjacent step ~288.4 m; circuit endpoint separation ~5.37 m.
+- A private interactive HTML map was supplied as a user-only artifact to overlay the GPX on GSI Maps and OpenStreetMap tiles. **Independent road alignment has not been confirmed** since external map tiles were unavailable in the execution environment, and this limitation must be stated plainly. A result matching NAVITIME's own GeoJSON is not independent OSM/GSI cartographic validation.
+- 0.0.108: [complete aggregate comparison report](TEST_REPORTS/2026-10-11-firefox-saved-route-fidelity.md).
+- 0.0.109: Firefox saved-route data fidelity/section merging marked PASS in the release matrix; popup-title/date, independent road map visualization, GPX XSD, Chrome/Edge saved-route and 0.0.2 recorded-ride regression remain pending.
+- 0.0.110: This detailed agent handoff update; no production source code change.

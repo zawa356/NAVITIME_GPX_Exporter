@@ -86,3 +86,9 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.104–0.0.105: Quality gate and multi-page test plan updated to distinguish download from coordinate/format validation.
 - 0.0.106: Added detailed continuity/handoff log with remaining browser QA.
 - 0.0.107: Changelog updated. No executable changes or public `0.1.0` release.
+
+## 0.0.108–0.0.111 — Firefox 0.0.2 planned-route full-data verification
+- 0.0.108: Full private HAR vs downloaded GPX comparison: 35 features, 2,648 raw points, 34 duplicates, **2,614 exported points all exactly matching in original order**, one segment; no invented timestamps or altitude.
+- 0.0.109: Saved-route Firefox data fidelity/continuity accepted, but independent road-map match and formal XSD validation remain unverified.
+- 0.0.110: Extended detailed handoff log, with geographic matching limitations and follow-on browser regression tests.
+- 0.0.111: Changelog synchronized; no executable code changed, no 0.1.0 public release.
