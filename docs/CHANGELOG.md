@@ -79,3 +79,10 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.99: Recorded Firefox malware-warning screenshot report, actual Actions artifact contents and source-hash provenance in `docs/TEST_REPORTS/2026-10-11-firefox-zip-warning.md`.
 - 0.0.100: Added root-cause uncertainty and safe next steps to the comprehensive handoff log.
 - 0.0.101: Updated changelog. **No antivirus false-positive claim has been established.** This documentation change is not a new released binary.
+
+## 0.0.102–0.0.107 — Firefox 0.0.2 saved-route smoke acceptance
+- 0.0.102: User-confirmed successful saved planned-route GPX download in Firefox 0.0.2; source/GPX content fidelity not yet verified.
+- 0.0.103: Clarified Firefox warning concerned the outer GitHub Actions `extension-builds.zip`; user reports clean Defender scan and elected to defer warning triage until before public release. No false-positive determination.
+- 0.0.104–0.0.105: Quality gate and multi-page test plan updated to distinguish download from coordinate/format validation.
+- 0.0.106: Added detailed continuity/handoff log with remaining browser QA.
+- 0.0.107: Changelog updated. No executable changes or public `0.1.0` release.
