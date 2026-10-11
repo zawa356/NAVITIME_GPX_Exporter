@@ -29,3 +29,9 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.38: Updated manual release checklist: Firefox popup rendering and single-ride GPX export PASS; all other browsers and cases pending.
 - 0.0.39: Development log updated with private-evidence testing and next steps.
 - These are **development commit/tag milestones**. They do not change the extension Manifest/package version, which remains 0.0.1 until release preparation.
+
+## 0.0.41–0.0.44 — second Firefox GPX and legacy PoC display (2026-10-11)
+- 0.0.41: Added privacy-safe second-file test report; GPX 1.1 file contained one segment with 539 points, all with timestamps and elevations.
+- 0.0.42: Documented a likely old temporary Firefox PoC injection causing a page-visible `GPXエクスポート（テスト版）` panel; current extension remains popup-only.
+- 0.0.43: Added removal of obsolete PoC add-ons to formal manual acceptance prerequisites.
+- 0.0.44: Recorded this milestone summary. Do not equate the screenshot's 1,436-point message with the uploaded 539-point GPX without confirmation; comparison to second ride's original source is pending.

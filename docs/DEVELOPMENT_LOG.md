@@ -118,3 +118,12 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.37: Added [Firefox private-evidence test summary](TEST_REPORTS/2026-10-11-firefox.md).
 - 0.0.38: Marked Firefox popup and basic logged-in GPX export as PASS in the release checklist.
 - 0.0.39: Updated this comprehensive development log. Next: rendering check in map application, second ride, Chrome/Edge and negative-case acceptance tests. Official GPX XSD validation still outstanding.
+
+## Second Firefox GPX & legacy injected-page UI (2026-10-11)
+- The user uploaded an additional GPX file and reported successful export.
+- Offline GPX inspection: well-formed XML, GPX 1.1, 1 track, 1 segment, **539 points**, all 539 elevations and timestamps present, timestamps strictly increasing and metadata start equals first-point time. No raw track data committed.
+- Separate screenshot reports old in-page PoC banner `GPXエクスポート（テスト版）` with **1,436 points**, unlike the uploaded 539-point GPX. The two cannot be treated as identical exports without further evidence.
+- Current production `content.js` contains no page-visible UI injection; most likely the temporary Firefox PoC from previous experiments remains installed. User should unload legacy PoC and reload page.
+- Project UI requirement remains **popup only**; page injection strictly prohibited. Source-vs-track fidelity for this second ride remains **unverified**, not conflated with the complete first-ride comparison.
+- 0.0.41: [Second-ride test report](TEST_REPORTS/2026-10-11-firefox-second-log.md).
+- 0.0.42: Detailed development log records this issue, evidence and next action.
