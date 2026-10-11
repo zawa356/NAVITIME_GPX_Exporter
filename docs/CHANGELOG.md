@@ -74,3 +74,8 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.94–0.0.95: Added and corrected ASCII punctuation/digit filename regression coverage.
 - 0.0.96: Avoided spread-induced stack/argument-limit failures when merging long geometry lines.
 - 0.0.97: Recorded these fixes and the open browser-acceptance gate. No change to first-public-release status.
+
+## 0.0.99–0.0.101 — Firefox ZIP reputation warning investigation
+- 0.0.99: Recorded Firefox malware-warning screenshot report, actual Actions artifact contents and source-hash provenance in `docs/TEST_REPORTS/2026-10-11-firefox-zip-warning.md`.
+- 0.0.100: Added root-cause uncertainty and safe next steps to the comprehensive handoff log.
+- 0.0.101: Updated changelog. **No antivirus false-positive claim has been established.** This documentation change is not a new released binary.
