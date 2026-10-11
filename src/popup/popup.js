@@ -3,7 +3,7 @@
   const $ = id => document.getElementById(id);
   const state = { tabId: null, busy: false, ready: false, lastDiagnostic: "" };
   const safe = (code, phase, status) => JSON.stringify({
-    application: "NAVITIME GPX Exporter", version: "0.0.1",
+    application: "NAVITIME GPX Exporter", version: chrome.runtime.getManifest().version,
     code, phase, httpStatus: Number.isInteger(status) ? status : null,
     browser: /Firefox/i.test(navigator.userAgent) ? "Firefox" :
       /Edg\//i.test(navigator.userAgent) ? "Edge" :
