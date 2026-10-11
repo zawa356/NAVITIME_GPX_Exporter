@@ -35,3 +35,8 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.42: Documented a likely old temporary Firefox PoC injection causing a page-visible `GPXエクスポート（テスト版）` panel; current extension remains popup-only.
 - 0.0.43: Added removal of obsolete PoC add-ons to formal manual acceptance prerequisites.
 - 0.0.44: Recorded this milestone summary. Do not equate the screenshot's 1,436-point message with the uploaded 539-point GPX without confirmation; comparison to second ride's original source is pending.
+
+## 0.0.45–0.0.47 — Legacy Firefox PoC display resolved
+- 0.0.45: Hard refresh (Ctrl+F5) cleared leftover web-page GPX PoC panel; current popup completed a 539-point, 1-segment export.
+- 0.0.46: Documented this real-user result and remaining source comparison / other-browser acceptance gates.
+- 0.0.47: Changelog updated. No functional source change was necessary; hypothesis remains stale page content, not verified continued installation of the old PoC.

@@ -127,3 +127,10 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - Project UI requirement remains **popup only**; page injection strictly prohibited. Source-vs-track fidelity for this second ride remains **unverified**, not conflated with the complete first-ride comparison.
 - 0.0.41: [Second-ride test report](TEST_REPORTS/2026-10-11-firefox-second-log.md).
 - 0.0.42: Detailed development log records this issue, evidence and next action.
+
+## Firefox follow-up: hard reload removed old PoC UI (2026-10-11)
+- User confirmed a **Ctrl+F5** hard refresh removed the unexpected legacy `GPXエクスポート（テスト版）` page display. Current popup remained functional.
+- New screenshot shows toolbar popup reporting saved **539 points / 1 segment** and Firefox download list with finished GPX downloads.
+- This supports **stale injected page content** as explanation; we have **not proven** whether the prior temporary PoC was still enabled. The current source never intentionally injects UI.
+- 0.0.45: Updated the private-evidence second-ride report with resolution and separated 1,436-point stale notice from 539-point current export.
+- 0.0.46: Recorded the resolution and next required manual target: Chrome (followed by Edge). GPX comparison against original second-ride JSON and complete Firefox negative-case matrix remain open.

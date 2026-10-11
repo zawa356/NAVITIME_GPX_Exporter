@@ -32,3 +32,11 @@ The final v1.0 design must **not** inject any GPX toolbar or status panel into N
 2. Reload the NAVITIME ride detail page; confirm the old page banner disappears.
 3. Open toolbar popup and export again, noting the point-count confirmation in the *popup* rather than from the old page. Optionally re-upload the resulting file without sharing API responses.
 4. Continue testing second ride, map rendering, Firefox negative cases, then Chrome and Edge.
+
+## Follow-up: obsolete in-page UI cleared
+
+The user performed **Ctrl+F5 (hard reload)** and confirmed the old in-page GPX exporter panel disappeared. The current toolbar popup remains fully functional. A new screenshot shows the popup's completion message for **539 points / 1 segment** and Firefox's download history showing successful GPX downloads.
+
+**Disposition:** Treat the extraneous in-page panel as stale page content from a former PoC, **not as an identified code defect in the current popup-only implementation**. Removal of a still-installed old temporary PoC extension is no longer confirmed as necessary; a hard reload resolved the symptom in this instance.
+
+The earlier 1,436-point notice is attributed provisionally to stale PoC output, not a discrepancy in the current 539-point export. Full comparison of this second ride with its original source JSON remains unverified. No browser screenshot or user GPX has been committed.
