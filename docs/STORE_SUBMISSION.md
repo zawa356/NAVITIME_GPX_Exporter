@@ -27,9 +27,9 @@
 ## Proposed listing copy (draft; review required)
 **Product:** NAVITIME GPX Exporter (unofficial)
 
-**Japanese summary:** NAVITIME ツーリングサポーターのWeb版で表示中の走行ログをGPX 1.1として保存できる非公式拡張機能です。座標・時刻・標高を無加工で保持し、個人の移動履歴を開発者サーバーへ送信しません。
+**Japanese summary:** NAVITIME ツーリングサポーターのWeb版で表示中の実走行ログと保存済みルートをGPX 1.1として保存する非公式拡張機能です。実走行ログの座標・時刻・標高を保持し、保存済みルートでは時刻・標高を補完せず経路形状を保持します。位置情報を開発者サーバーへ送信しません。
 
-**English summary:** An independent browser extension that exports the currently viewed NAVITIME Touring Supporter ride history to GPX 1.1. Location data stays in the user's browser and saved file.
+**English summary:** An independent browser extension that exports the currently viewed NAVITIME Touring Supporter recorded ride or saved planned route to GPX 1.1. Location data stays in the user's browser and saved file.
 
 **Disclaimer:** NAVITIME GPX Exporter is not developed, provided, supported, or endorsed by NAVITIME JAPAN Co., Ltd.
 
@@ -42,8 +42,12 @@
 - Review service terms, legal constraints and current store rules before actual submission.
 - Provide [Privacy Policy](PRIVACY_POLICY.md), [Security](SECURITY.md), [Release Checklist](RELEASE_CHECKLIST.md).
 
+## Version and support disclosures
+
+As of development package **0.0.2**, saved planned routes are under acceptance testing. The eventual store description must distinguish recorded GPS tracks (which include source timestamps/elevation) from calculated saved routes (which have neither). The extension does not support arbitrary NAVITIME services, batch export, or unrestricted navigation-path sniffing. Future integrations of unsubscribed products require test contributors and policy validation.
+
 ## Submission prerequisites
-- [ ] Manual tests on all 3 target browsers
+- [ ] Manual tests of BOTH recorded-ride and saved-route exports on all 3 target browsers
 - [ ] Code/diagnostic privacy review
 - [ ] Browser icons and graphics with original branding
 - [ ] Published privacy policy URL available to reviewers
