@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+*.log
+*.har
+*.gpx
+*.fit
+*.tcx
+touring_log_*.json
+.env*
+.DS_Store

@@ -1,0 +1,11 @@
+:root{color-scheme:light;font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:#172332}
+*{box-sizing:border-box}body{margin:0;width:330px;max-width:100vw;background:#fff}
+main{padding:16px}header{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+h1{font-size:16px;margin:0}small,footer,#rideDate{color:#64748b}section{padding:14px 0;min-height:80px}
+h2{font-size:15px;overflow-wrap:anywhere;margin:2px 0 8px}p{margin:4px 0}
+button{display:block;width:100%;padding:10px 12px;border:0;border-radius:8px;background:#1749b5;color:white;font:600 14px system-ui;cursor:pointer}
+button:disabled{background:#9baac2;cursor:default}button:focus-visible,summary:focus-visible{outline:3px solid #80b4fc;outline-offset:2px}
+button.quiet{background:#eff5ff;color:#19479b;margin-top:7px}#status[data-error="true"]{color:#a01b24}
+details{margin:12px 0;border:1px solid #d8e0ec;border-radius:8px;padding:9px}
+summary{cursor:pointer;font-weight:600}pre{font:11px/1.45 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word;background:#f7f9fc;padding:8px;border-radius:6px}
+footer{font-size:11px;margin-top:16px}
