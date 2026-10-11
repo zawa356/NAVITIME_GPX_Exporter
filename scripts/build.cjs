@@ -4,8 +4,10 @@ const path = require("node:path");
 const { execFileSync } = require("node:child_process");
 const root = path.resolve(__dirname, "..");
 const files = [
-  "core/errors.js", "core/track.js", "formats/gpx.js",
-  "services/touring-supporter.js", "extension/content.js",
+  "core/errors.js", "core/http.js", "core/track.js",
+  "formats/geojson.js", "formats/gpx.js",
+  "services/touring-supporter.js", "services/saved-route.js",
+  "services/registry.js", "extension/content.js",
   "popup/index.html", "popup/popup.css", "popup/popup.js"
 ];
 function build(browser) {
