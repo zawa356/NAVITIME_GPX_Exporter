@@ -1,16 +1,16 @@
 # Browser store publication preparation
 
-**Status:** preparation only. No store submission, store approval, or public release has taken place.
+**Status:** v0.1.0 publishing pipeline implemented, awaiting explicit execution and AMO credentials. No submitted or approved AMO version and no GitHub Release have been verified yet.
 
 ## Publication strategy
-- First development commits use milestone series 0.0.1, 0.0.2, etc. The version in the initial extension package is 0.0.1.
-- First planned public user-facing build is 0.1.0, after automated tests, manual browser acceptance and a release decision.
+- Internal development milestone tags use 0.0.x; the package manifests now identify the **v0.1.0 release candidate**.
+- Initial public candidate is **0.1.0 as a GitHub prerelease**, with documented open testing items; the signed AMO listed version becomes public only upon Mozilla approval.
 - GitHub is the source of truth for documentation, CI and binaries. Store approvals are separate processes and can complete in different order.
 
 ## Firefox (addons.mozilla.org)
 - Ensure stable `browser_specific_settings.gecko.id` and currently valid Firefox `data_collection_permissions` declaration.
 - Complete listing information, icon, screenshots, description, privacy policy URL and support URL.
-- Obtain Mozilla signing / pass reviewer submission. An unsigned development ZIP is **not** a normal public installation package.
+- Submit by GitHub Actions `Release / AMO` using official Mozilla `web-ext sign --channel listed` (API v5) and GitHub Secrets `AMO_JWT_ISSUER`, `AMO_JWT_SECRET`; Mozilla's review is independent. The unsigned GitHub ZIP is **not** a normal public Firefox install package.
 - Test a signed installation on a current Firefox release.
 
 ## Chrome Web Store
@@ -44,7 +44,7 @@
 
 ## Version and support disclosures
 
-As of development package **0.0.2**, saved planned routes are under acceptance testing. The eventual store description must distinguish recorded GPS tracks (which include source timestamps/elevation) from calculated saved routes (which have neither). The extension does not support arbitrary NAVITIME services, batch export, or unrestricted navigation-path sniffing. Future integrations of unsubscribed products require test contributors and policy validation.
+As of **0.1.0 prerelease candidate**, Firefox saved route source-to-GPX integrity is proven on one real route; additional Chrome/Edge planned-route and negative-case acceptance remains pending. The eventual store description must distinguish recorded GPS tracks (which include source timestamps/elevation) from calculated saved routes (which have neither). The extension does not support arbitrary NAVITIME services, batch export, or unrestricted navigation-path sniffing. Future integrations of unsubscribed products require test contributors and policy validation.
 
 ## Submission prerequisites
 - [ ] Manual tests of BOTH recorded-ride and saved-route exports on all 3 target browsers
@@ -53,7 +53,8 @@ As of development package **0.0.2**, saved planned routes are under acceptance t
 - [ ] Published privacy policy URL available to reviewers
 - [ ] Contact/support process
 - [ ] Store metadata and language review
-- [ ] User-authorized official account registrations and submission actions
+- [x] User reports AMO developer account registered; actual add-on GUID and API keys must still be validated privately before upload
+- [ ] First authenticated workflow run (API v5 listed submission) and review approval
 
 ## Artwork automation (development 0.0.3)
 - The selected app icon is tracked as a binary PNG in `artwork/icon-source.png`.
@@ -62,3 +63,7 @@ As of development package **0.0.2**, saved planned routes are under acceptance t
 - The browser and marketplace package inspect the icon metadata automatically. **Separate listing metadata, screenshots, privacy declarations, credentials and publishing are not automatically submitted** by the current CI.
 - The 512px listing image is an enlargement from the optimized 128px approved source; replace with higher-resolution approved artwork before publication if listing sharpness is unsatisfactory.
 - See [BRANDING.md](BRANDING.md) for the manifest, build and asset-verification contracts.
+
+## GitHub Actions implementation
+
+The automated workflow is [`.github/workflows/release.yml`](../.github/workflows/release.yml), with a detailed [AMO runbook](AMO_PUBLISHING.md) and bilingual reviewer metadata in [`amo/metadata.json`](../amo/metadata.json). It is explicitly manual, provides `github` vs `github-and-amo` modes, checks versions and lint, bundles readable source, and creates/reuses the `v0.1.0` **GitHub prerelease**. The AMO sign step requires encrypted Secrets and approval is not inferred from submission. The GitHub repository remains private until a maintainer explicitly changes its visibility. Store privacy policy links must be publicly accessible to reviewers.
