@@ -1,0 +1,17 @@
+{
+  "summary": {
+    "ja": "NAVITIME ツーリングサポーターの実走行ログと保存済みルートをGPX形式で出力します。",
+    "en-US": "Export recorded rides and saved planned routes from NAVITIME Touring Supporter as GPX files."
+  },
+  "categories": [
+    "other"
+  ],
+  "version": {
+    "license": "MIT",
+    "release_notes": {
+      "ja": "初回公開版。実走行ログの時刻・標高を保持し、保存済みルートの経路形状をGPX 1.1で出力します。",
+      "en-US": "Initial release: export recorded tracks with timestamps and elevations, or planned routes with detailed geometry, as GPX 1.1."
+    },
+    "approval_notes": "Unofficial independent NAVITIME Touring Supporter GPX export tool. Authenticated read-only requests occur only to the displayed NAVITIME site at the user's action. No remote executable code, telemetry, advertising, credential collection, or location exfiltration. All runtime JavaScript files are readable, not minified or transpiled. CI produces icon PNG sizes with ImageMagick from artwork/icon-source.png. Full human-readable source with exact build instructions is uploaded alongside this submission. Reviewer can use a test account with its own saved route or ride log."
+  }
+}

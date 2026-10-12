@@ -1,0 +1,124 @@
+name: Release / AMO
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (must equal package + manifests)"
+        type: string
+        required: true
+        default: "0.1.0"
+      destination:
+        description: "GitHub prerelease only, or also submit to AMO listed review"
+        type: choice
+        required: true
+        options:
+          - github
+          - github-and-amo
+        default: github
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-v0.1.0
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install image build dependency
+        run: |
+          if ! command -v magick >/dev/null 2>&1 && ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y --no-install-recommends imagemagick
+          fi
+      - name: Run tests and build 3 browser packages
+        run: npm run ci
+      - name: Verify requested release identity and package contents
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: node scripts/release-preflight.cjs "$REQUESTED_VERSION"
+      - name: Validate Firefox package with Mozilla web-ext
+        run: npx --yes web-ext@10.7.0 lint --source-dir dist/firefox --output text
+      - name: Archive human-readable source for AMO reviewers
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          zip -q -r "dist/navitime-gpx-exporter-source-${REQUESTED_VERSION}.zip" \
+            src manifests scripts artwork amo package.json README.md LICENSE \
+            docs/BRANDING.md docs/PRIVACY_POLICY.md docs/RELEASE_NOTES_0.1.0.md \
+            .github/workflows/ci.yml .github/workflows/release.yml
+          unzip -t "dist/navitime-gpx-exporter-source-${REQUESTED_VERSION}.zip"
+      - name: Stage reproducible release assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-v0.1.0-assets
+          path: |
+            dist/navitime-gpx-exporter-*.zip
+            dist/store-assets/icon-512.png
+          retention-days: 90
+          if-no-files-found: error
+      - name: Check AMO secrets before any submission
+        if: inputs.destination == 'github-and-amo'
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.AMO_JWT_ISSUER }}
+          WEB_EXT_API_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          if [[ -z "$WEB_EXT_API_KEY" || -z "$WEB_EXT_API_SECRET" ]]; then
+            echo "::error::Configure AMO_JWT_ISSUER and AMO_JWT_SECRET in repo Actions secrets."
+            exit 1
+          fi
+      - name: Submit to AMO API v5 (listed, review required)
+        if: inputs.destination == 'github-and-amo'
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.AMO_JWT_ISSUER }}
+          WEB_EXT_API_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          npx --yes web-ext@10.7.0 sign \
+            --source-dir dist/firefox \
+            --artifacts-dir dist/amo-signed \
+            --channel listed \
+            --amo-metadata amo/metadata.json \
+            --upload-source-code "dist/navitime-gpx-exporter-source-${{ inputs.version }}.zip" \
+            --approval-timeout 0 \
+            --timeout 600000 \
+            --no-input
+          echo "::notice::AMO submission was requested; Mozilla review/approval is a separate process."
+      - name: Create GitHub v0.1.0 prerelease or confirm existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          tag="v${REQUESTED_VERSION}"
+          git fetch --tags --force
+          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            target="$(git rev-list -n 1 "$tag")"
+            if [[ "$target" != "$GITHUB_SHA" ]]; then
+              echo "::error::Tag $tag already points to $target, not this run's $GITHUB_SHA. Refusing to publish different code under the same version."
+              exit 1
+            fi
+          fi
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "::notice::GitHub release $tag already exists for this source. Skipping duplicate publication."
+          else
+            gh release create "$tag" \
+              "dist/navitime-gpx-exporter-firefox-${REQUESTED_VERSION}.zip" \
+              "dist/navitime-gpx-exporter-chrome-${REQUESTED_VERSION}.zip" \
+              "dist/navitime-gpx-exporter-edge-${REQUESTED_VERSION}.zip" \
+              "dist/navitime-gpx-exporter-source-${REQUESTED_VERSION}.zip" \
+              "dist/store-assets/icon-512.png" \
+              --target "$GITHUB_SHA" \
+              --title "NAVITIME GPX Exporter v${REQUESTED_VERSION}" \
+              --notes-file docs/RELEASE_NOTES_0.1.0.md \
+              --prerelease
+          fi

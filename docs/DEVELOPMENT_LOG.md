@@ -281,3 +281,34 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - 0.0.129: Skip only these known restricted refs in the current tag automation, with a visible Actions warning, to avoid failing unrelated successful release builds. All further milestone refs should still publish normally.
 - Restoring these missing tags later requires a GitHub credential authorized for workflow changes. The maintainer can use an appropriately scoped human token or adjust GitHub App permissions explicitly; do not place a token in the source repository.
 - 0.0.130: This detailed handoff record.
+
+## v0.1.0 release candidate and AMO API v5 deployment workflow (2026-10-12)
+
+**User instruction:** Consider publishing the project as its first release; user reports completing AMO developer registration. Implement GitHub Actions → authenticated AMO API submission to avoid repetitive Developer Hub manual uploads. Maintainer-authorized API issuer/secret are not yet available to the assistant. **No AMO upload was performed.**
+
+**Authority and distribution:** The initial version is a **GitHub prerelease candidate v0.1.0**, because the existing checklist still lacks Chrome/Edge saved planned-route end-to-end checks, additional 0.0.3+ regression/negative-case testing, independent road basemap alignment and official GPX 1.1 XSD validation. Automatic AMO upload may be requested by the maintainer independently; it does not equal AMO approval. The repository is still private unless its settings are changed by the maintainer; private links are not suitable as public AMO privacy policies.
+
+**API/research basis** (October 2026):
+- Mozilla official `web-ext` v10.7.0 supports API v5 `sign --channel listed`, `--amo-metadata`, `--upload-source-code`, `--approval-timeout 0` and stores API JWT credentials in `WEB_EXT_API_KEY`, `WEB_EXT_API_SECRET` environment variables. Node.js 22+ is required by web-ext v10.
+- A listed upload submits to AMO for validation/review. First-time submission can create a listing with required metadata, while submitting a version to an existing listing requires matching Firefox Gecko ID. The existing known ID is `navitime-gpx-exporter@zawa356.github.io`; **confirm against existing AMO listing** to avoid duplicates.
+- Initial listing metadata supplies `summary` translations, category `other`, version MIT license, release notes and approval notes explaining on-demand same-origin data retrieval and bundled readable code.
+
+**Small changes committed:**
+- 0.0.132–0.0.134: Package and both Firefox/Chromium Manifest MV3 versions bumped from development 0.0.3 to `0.1.0`.
+- 0.0.135: Fix icon test to reference package version, not a stale hardcoded number.
+- 0.0.136: Add `amo/metadata.json`, bilingual listing/reviewer info and MIT licensing.
+- 0.0.137: Add `scripts/release-preflight.cjs` to cross-check requested and packaged versions, Gecko ID, privacy declaration and all referenced icon files.
+- 0.0.138: Add `docs/RELEASE_NOTES_0.1.0.md`, explicitly distinguishing developer packages, AMO review and remaining QA.
+- 0.0.139: Add manually invoked `.github/workflows/release.yml` with input destination `github` or `github-and-amo`, pinned official `web-ext@10.7.0`, tests/lint/source code, Mozilla JWT Secrets and idempotent-tag-aware GitHub prerelease creation.
+- 0.0.140: Integrate Mozilla lint + release preflight in Node.js 22 CI; older Node.js 20 remains used for existing unit/build matrix. `web-ext` requires Node 22+.
+- 0.0.141: Static tests for release metadata, versions, minimal permissions and explicit AMO trigger gating.
+- 0.0.142: Comprehensive [AMO publication and credential runbook](AMO_PUBLISHING.md).
+- 0.0.143–0.0.145: README, marketplace guide and checklist revised to distinguish v0.1.0 candidate status from a reviewed/published AMO version.
+- 0.0.146: This detailed technical handoff.
+- 0.0.147: Changelog entry summarizing v0.1.0 pipeline.
+
+**CI evidence:** PR #16 CI run 38193365247 passed both Node 20 and 22; Node 22 included official `web-ext lint` (no issues causing failure), all source unit tests, icon generation and ZIP checks. Later CI runs should be checked after documentation commits. The pipeline's actual `workflow_dispatch`, GitHub Release creation and AMO `sign` actions **cannot be validated against authenticated external services without configured Secrets and an explicit workflow run**.
+
+**One-time follow-up for maintainer:** In GitHub repository `Settings → Secrets and variables → Actions`, add `AMO_JWT_ISSUER` and `AMO_JWT_SECRET`. Check the AMO add-on GUID, publish privacy policy at publicly accessible URL, then in `Actions → Release / AMO → Run workflow` run `0.1.0` with `github` first; subsequently `github-and-amo` for actual AMO v5 listed submission, observing that an upload awaiting review is not an approved listing. Do not paste secrets into chat or GitHub Issues. The historical 0.0.118–0.0.125 tag permissions exception remains unrelated.
+
+**Protection against accidental activity:** No routine push, PR or development tag triggers AMO submission. Github release tag v0.1.0 cannot be moved to a different SHA by this workflow. Mozilla's review and future Chrome/Edge stores are separate processes.

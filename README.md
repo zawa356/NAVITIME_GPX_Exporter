@@ -5,13 +5,13 @@
 **Export recorded rides and saved planned routes from NAVITIME Touring Supporter to GPX 1.1 — directly in your browser.**
 
 [![CI](https://github.com/zawa356/NAVITIME_GPX_Exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/zawa356/NAVITIME_GPX_Exporter/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-0.0.3--dev-blue)
+![Version](https://img.shields.io/badge/version-0.1.0--prerelease-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Browser](https://img.shields.io/badge/browsers-Firefox%20%7C%20Chrome%20%7C%20Edge-informational)
 
 > [!IMPORTANT]
 > **Unofficial community tool, not affiliated with NAVITIME JAPAN.**
-> Experimental development version, not yet verified for store release. Use only with your own logged-in account.
+> Initial **v0.1.0 prerelease**; Firefox AMO listing requires Mozilla review before public installation. Only use with your own logged-in account.
 
 ## Features / 主な機能
 
@@ -57,7 +57,7 @@ Then:
 | Recorded GPS ride | `/users/me/biography/touring/detail/?id=...` | GPX track with source timestamps and altitudes |
 | Saved planned route | `/routes/view/?id=...` | Detailed GPX track with no per-point time or elevation |
 
-**Saved planned routes are still experimental.** The route API's GeoJSON data has been confirmed in one private HAR; the new implementation's real-browser behavior has not yet been approved. Only the known, currently displayed route is queried. No background network sniffing.
+**Saved planned routes:** the Firefox 0.0.2 export was checked against a private HAR (2,614 of 2,614 ordered points); Chrome and Edge tests of planned-route export remain incomplete. Only the known, currently displayed route is queried. No background network sniffing.
 
 ### Example filenames
 
@@ -66,11 +66,11 @@ Then:
 
 ## Supported and unsupported
 
-**v0.0.2 implementation:** Touring Supporter web *recorded-ride details* and *saved planned-route details* (experimental pending three-browser live acceptance), one item per click. No batch export, arbitrary map extraction, generic navigation, or direct mobile-app access.
+**v0.1.0 scope:** Touring Supporter web *recorded-ride details* and *saved planned-route details* (experimental pending three-browser live acceptance), one item per click. No batch export, arbitrary map extraction, generic navigation, or direct mobile-app access.
 
 **Future candidates, not promised:** Car NAVITIME, Drive Supporter, Truck Car NAVITIME, Bicycle NAVITIME, Speed Meter and others. Each requires independent feasibility and policy assessment; no permissions are requested for them yet.
 
-**Known limitations:** undocumented service endpoints can change; planned saved routes do not contain timestamps or elevation; navigation or tab closure during export cancels output; the source altitude is preserved without validation against terrain height; browser popup may close while export proceeds. Initial builds require live browser acceptance testing. Store review has not been completed.
+**Known limitations:** undocumented service endpoints can change; planned saved routes do not contain timestamps or elevation; navigation or tab closure during export cancels output; the source altitude is preserved without validation against terrain height; browser popup may close while export proceeds. Some additional browser acceptance and GPX XSD tests are still pending; see docs/RELEASE_CHECKLIST.md. Mozilla AMO submission/review is separate and not yet confirmed.
 
 ## Architecture
 
@@ -86,9 +86,20 @@ popup UI → content-script controller → touring-supporter adapter
 
 See [saved-route design and evidence](docs/PROPOSALS/SAVED_ROUTE_EXPORT.md), [architecture](docs/ARCHITECTURE.md), [requirements](docs/REQUIREMENTS.md), [development log](docs/DEVELOPMENT_LOG.md), [changelog](docs/CHANGELOG.md), and [release checklist](docs/RELEASE_CHECKLIST.md).
 
+## Release v0.1.0 / AMO publication
+
+A manually triggered [Release / AMO](.github/workflows/release.yml) GitHub Actions workflow builds and checks all three browser packages, runs Mozilla's official `web-ext` linter, prepares a human-readable source archive, and can submit to AMO API v5 in the **listed** channel.
+
+- `github`: create or reuse a GitHub **prerelease** with developer ZIPs and source.
+- `github-and-amo`: submit to AMO for Mozilla review and create/reuse the same GitHub prerelease.
+
+The AMO API credentials are **GitHub Actions Secrets**, never files committed to the repository. Set `AMO_JWT_ISSUER` and `AMO_JWT_SECRET` once in **Settings → Secrets and variables → Actions**, then use **Actions → Release / AMO → Run workflow** on the `main` branch. This is not run automatically on normal pushes. Confirm the registered AMO add-on GUID matches the Firefox manifest ID before submitting.
+
+See [AMO publishing runbook](docs/AMO_PUBLISHING.md) and [0.1.0 release notes](docs/RELEASE_NOTES_0.1.0.md). Submitting to AMO does **not** mean Mozilla has approved public distribution.
+
 ## Development
 
-Latest development package version: **0.0.3**. Each GitHub Actions run provides Firefox, Chrome and Edge ZIPs. Do not reuse previous builds when checking changes. Development Git tags `0.0.x` label individual commit milestones, not independently published extension releases.
+First release candidate package version: **0.1.0**. Each GitHub Actions run provides Firefox, Chrome and Edge ZIPs. Do not reuse previous builds when checking changes. Development Git tags `0.0.x` label individual commit milestones, not independently published extension releases.
 
 
 ```bash

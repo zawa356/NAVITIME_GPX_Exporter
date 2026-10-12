@@ -110,3 +110,10 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.129: Document and explicitly skip historical milestone refs 0.0.118–0.0.125 in the Actions tagging job, because GitHub rejects tagging their workflow-modifying commit ancestry under the current app token's permissions.
 - 0.0.130: Detailed handoff log records the immutable original commit SHAs, verified successful icon/package CI, incomplete tag state and authorization path for later repair.
 - 0.0.131: Changelog synchronized. Browser extension `0.0.3` binaries are valid build artifacts. Tagging job failures are distinct from build/test failures; public 0.1.0 remains not yet released.
+
+## v0.1.0 initial GitHub prerelease / AMO API publishing pipeline — 2026-10-12
+- **0.0.132–0.0.135:** package + Firefox/Chromium manifests bumped to 0.1.0, icon-version test made version-agnostic.
+- **0.0.136–0.0.138:** bilingual MIT-licensed AMO listing/reviewer metadata, preflight validation, honest v0.1.0 release notes with pending checks.
+- **0.0.139–0.0.141:** manual GitHub Actions release workflow. Builds and tests all supported browsers, validates Firefox with pinned Mozilla `web-ext@10.7.0`, archives readable source, optionally submits to AMO API v5 `listed` channel using encrypted issuer/secret Secrets, creates an immutable-version-aware GitHub prerelease. No AMO submission on routine pushes. Includes synthetic workflow assertions.
+- **0.0.142–0.0.145:** Maintainer AMO credential setup/runbook, README release quick start, store submission documentation and remaining-release-gate checklist updated.
+- **0.0.146–0.0.147:** Detailed agent continuity notes and changelog synchronized. **No assertion of AMO approval, store publication, GitHub release existence or full three-browser acceptance.** Those are separately observable operational steps and must be recorded only once genuinely completed.

@@ -1,6 +1,6 @@
 # Release and acceptance checklist
 
-**Target:** First public release `0.1.0` after two Touring Supporter page types (recorded rides AND saved planned routes) pass acceptance in all three browsers. Merging development code does NOT publish version 0.1.0.
+**Release candidate:** v0.1.0 (GitHub **prerelease** only until the outstanding browser and format acceptance gaps are closed). The user authorized starting initial release preparation and AMO API automation despite several incomplete manual tests. **Merging code does not submit AMO or create a GitHub Release.** The AMO `listed` upload requires an explicit manual workflow run and Mozilla review.
 
 ## Automated gates
 - [ ] `npm run check` validates all JavaScript source.
@@ -39,6 +39,23 @@
 The saved-route adapter was developed from **one real HAR** plus synthetic tests. It is not eligible for public release until each browser performs one live route-detail export and the exported route is checked for approximately 2,614 distinct route vertices and correct segmentation. The 2,614 figure applies only to the private reference route in the HAR; different routes can legitimately differ. Check no <time> or <ele> data was fabricated, record the result in `docs/TEST_REPORTS/`, and never commit the route file.
 
 Recorded-ride compatibility remains an independent regression gate. Verify **both** page types before increasing the release version to 0.1.0. Unsupported routes/other NAVITIME services remain out-of-scope until separately validated.
+
+## v0.1.0 automation gate
+
+- [x] Application and both Manifest V3 versions set to `0.1.0`.
+- [x] `amo/metadata.json` contains Japanese/English listing summary, MIT license, release notes and reviewer explanation.
+- [x] `release.yml` is manually dispatched; normal PR or push cannot transmit to AMO.
+- [x] Encrypted `AMO_JWT_ISSUER` and `AMO_JWT_SECRET` references exist only in the conditional AMO submission steps; repository must be configured with actual secret values by maintainer.
+- [x] Official Mozilla `web-ext lint` and `release-preflight` run in CI before submission.
+- [x] Workflow produces source archive and browser packages; GitHub release uses `--prerelease`.
+- [ ] Repository privacy page accessible to reviewers, public repo visibility or independent public privacy policy hosted.
+- [ ] Confirm AMO existing add-on GUID agrees with `browser_specific_settings.gecko.id` to avoid duplicate listing.
+- [ ] Maintainer has configured AMO API issuer/secret as GitHub Actions Secrets.
+- [ ] `v0.1.0` GitHub Release created through the manual workflow.
+- [ ] AMO `listed` API submission performed and Mozilla confirms receipt/processing.
+- [ ] Mozilla review approval and Firefox signed installation verified separately.
+
+See [AMO publishing runbook](AMO_PUBLISHING.md). API acceptance is not store approval; unfinished manual browser tests above remain explicitly pending.
 
 ## Store & documentation
 - [ ] Built extension for Firefox, Chrome, Edge contains registered `icons` and `action.default_icon`, and asset dimensions are verified by `npm run verify:icons`.
