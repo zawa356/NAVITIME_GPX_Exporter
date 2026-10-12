@@ -312,3 +312,14 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 **One-time follow-up for maintainer:** In GitHub repository `Settings → Secrets and variables → Actions`, add `AMO_JWT_ISSUER` and `AMO_JWT_SECRET`. Check the AMO add-on GUID, publish privacy policy at publicly accessible URL, then in `Actions → Release / AMO → Run workflow` run `0.1.0` with `github` first; subsequently `github-and-amo` for actual AMO v5 listed submission, observing that an upload awaiting review is not an approved listing. Do not paste secrets into chat or GitHub Issues. The historical 0.0.118–0.0.125 tag permissions exception remains unrelated.
 
 **Protection against accidental activity:** No routine push, PR or development tag triggers AMO submission. Github release tag v0.1.0 cannot be moved to a different SHA by this workflow. Mozilla's review and future Chrome/Edge stores are separate processes.
+
+## Pre-public repository security review (2026-10-12)
+- User explicitly requested a confidentiality audit before making repository visibility Public. No admin visibility-change tool is available from the connected GitHub app, despite code/PR write access; user must perform the final GitHub Settings action.
+- 0.0.148: Added [audit report](PRE_PUBLIC_SECURITY_AUDIT_2026-10-12.md).
+- Scope: current default tree (69 Git objects / 52 blobs), all 163 main-branch commits and their file diffs, all 17 visible branch heads, 16 PR descriptions, no issue/review comments, GitHub Actions source workflow, existing v0.1.0 prerelease assets.
+- Result: no token/private key/cookie literal, private HAR/GPX/FIT/TCX or `.env` file was detected among reviewed current/historical committed content. All other branch head trees have no file paths absent from main.
+- The published commit author's email domain is `mail.zawazawa.net`; this **will become public** with the Git history and must be acceptable to the maintainer.
+- AMO JWTs are represented as secret references, not literal values; GitHub's Actions Secrets values are not readable through this connection and are not part of git history.
+- One existing v0.1.0 GitHub prerelease with Firefox/Chrome/Edge ZIPs, a source ZIP, and a PNG icon points to the reviewed `main` commit. These are externally downloadable once Public.
+- Known limitations: audit is static/heuristic; it does not assert absence of every possible disguised credential, and historical CI logs/artifacts were not exhaustively inspected.
+- 0.0.149: Development log extended with audit outcome and the manual GitHub visibility change remaining.
