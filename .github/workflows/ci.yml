@@ -26,6 +26,11 @@ jobs:
           fi
       - name: Syntax / tests / package
         run: npm run ci
+      - name: Release identity and asset preflight
+        run: node scripts/release-preflight.cjs 0.1.0
+      - name: Mozilla AMO lint (Node 22)
+        if: matrix.node == '22'
+        run: npx --yes web-ext@10.7.0 lint --source-dir dist/firefox --output text
       - name: Package check
         run: |
           unzip -t dist/navitime-gpx-exporter-firefox-*.zip
