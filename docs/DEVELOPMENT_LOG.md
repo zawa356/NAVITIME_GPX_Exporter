@@ -323,3 +323,13 @@ Never commit or echo tokens, raw HAR, raw GPS tracks, private user details or AP
 - One existing v0.1.0 GitHub prerelease with Firefox/Chrome/Edge ZIPs, a source ZIP, and a PNG icon points to the reviewed `main` commit. These are externally downloadable once Public.
 - Known limitations: audit is static/heuristic; it does not assert absence of every possible disguised credential, and historical CI logs/artifacts were not exhaustively inspected.
 - 0.0.149: Development log extended with audit outcome and the manual GitHub visibility change remaining.
+
+## Post-Public final confidentiality check (2026-10-12)
+
+- The user changed the GitHub repository visibility and requested a final safety check. GitHub API now reports `visibility=public`, audited at main revision `aed47fae4b8405964ba3466d30847169a7cf43bd`.
+- Re-scanned every current tracked text file (52 text files plus one icon PNG in 53 tracked blobs, 70 total tree nodes) for private keys, token prefixes, JWTs, cookie/auth header values, hardcoded credentials, high-precision personal GPS data and private artifact filenames. None detected. The `.har` and `.gpx` strings in source and documentation are examples, ignore rules and extension/output references, not actual uploaded private files.
+- Previously examined full 163-commit history, 17 branch heads (no ahead/unmerged commits), and 16 PR descriptions. Public author metadata contains a custom-domain email address; it is not a credential.
+- Checked successful GitHub Actions log bodies from release job 114632629270 and main push jobs 114635272104 / 114635272338 / 114635393296. No matched literal secrets, auth headers, private keys or precise personal route coordinates. The release job is GitHub prerelease mode; no AMO submission result implied.
+- `v0.1.0` remains a GitHub **prerelease** with expected 5 asset names. Release ZIP byte contents and the totality of historical CI logs have **not** been independently re-audited this turn. GitHub Actions Secrets vault values are not available to this connector.
+- 0.0.151: [post-Public audit report](POST_PUBLIC_SECURITY_AUDIT_2026-10-12.md), finding no high-severity leak.
+- 0.0.152: This documentation-only handoff. No program code, privacy setting, release tag or AMO listing is modified.
