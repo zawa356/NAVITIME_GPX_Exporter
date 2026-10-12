@@ -15,7 +15,7 @@ test("approved artwork is a real 128px PNG committed with the project", () => {
 test("both browser manifests automatically register extension and toolbar icons", () => {
   for (const filename of ["firefox.json","chromium.json"]) {
     const manifest = JSON.parse(fs.readFileSync(path.join(root,"manifests",filename),"utf8"));
-    assert.equal(manifest.version,"0.0.3");
+    assert.equal(manifest.version,require("../package.json").version);
     for(const size of [16,32,48,96,128]) {
       assert.equal(manifest.icons[String(size)], `icons/icon-${size}.png`);
     }
