@@ -122,3 +122,8 @@ This document records implementation milestones and decisions so another AI agen
 - 0.0.148: Complete static audit report of the 69-object main tree, 163-commit main history, 17 branch heads, 16 pull requests, current GitHub Actions/AMO setup and existing v0.1.0 prerelease assets. No HAR/GPX, literal auth secrets or private GPS traces detected.
 - 0.0.149: Developer handoff notes the commit author email will become public, private vault values are not inspectable through the connector, and the connected GitHub actions cannot change repository visibility.
 - 0.0.150: Changelog synchronized. **Visibility has not yet been changed.** Administrator must use GitHub Settings to select Public and then verify the resulting state.
+
+## 0.0.151–0.0.153 — post-Public final confidentiality verification (2026-10-12)
+- 0.0.151: GitHub confirmed `visibility=public`. Re-scanned 52 current tracked text files, reviewed prior full-history and all branch/PR coverage, and scanned four recent Actions job logs. No committed secrets, private HAR/GPX data or literal auth credentials detected; confirmed five expected prerelease assets.
+- 0.0.152: Added audit rationale, limits and final result to agent handoff documentation.
+- 0.0.153: Synchronized changelog. Documentation-only change; application version remains `0.1.0`, GitHub release remains a prerelease, and AMO submission/review are unaffected.
